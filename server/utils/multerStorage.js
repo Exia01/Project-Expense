@@ -1,40 +1,41 @@
 const multer = require('multer');
 const path = require('path');
-//Set storage engine
+
+//Set storage engine || replace ability not implemented 
 const storage = multer.diskStorage({
   destination: './client/public/uploads/',
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
+    let name = file.originalname.split(".")[0]
     cb(
       null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+      `${name}${Date.now()}${path.extname(file.originalname)}`
     );
   }
 });
 
 //Init upload
-const uploadProcess = (req, res) => {
   const upload = multer({
     storage: storage,  //using attributes from storage
-    limits: {fileSize: 1000000},
-    fileFilter: (req, file, (cb) => {
+    limits: {fileSize: 10000000},
+    fileFilter: function (req, file, cb) {
+      console.log(file)
       checkFileType(file, cb)
-    })
-  }).single('testfile')//from the input field
+    }
+  }).single('testfile')//from the input field, uploading 'This' file
 
-  const checkFileType = (file, cb) => {
+  function checkFileType(file, cb){
     //Allowed extensions 
-    fileTypes = /xls|cvs|xlsx/;
+    fileTypes = /xls|cvs|xlsx|vnd.ms-excel/;
     const extName = fileTypes.test(path.extname(file.originalname).toLowerCase())
     //check mime type
     const mimeType = fileTypes.test(file.mimetype)
-    if (mimetype && extname) {
+    if (mimeType && extName) {
       return cb(null, true);
     } else {
       cb('Excel or CSV format only!');
     }
   }
-}
 module.exports = {
     storage: storage,
-    uploadProcess:uploadProcess
+    upload:upload
 }
