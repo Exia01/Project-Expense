@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
   function checkFileType(file, cb){
     //Allowed extensions 
-    fileTypes = /xls|cvs|xlsx|vnd.ms-excel/;
+    const fileTypes = /.*\.xlsx|xls|csv|vnd.ms-excel/g
     const extName = fileTypes.test(path.extname(file.originalname).toLowerCase())
     //check mime type
     const mimeType = fileTypes.test(file.mimetype)

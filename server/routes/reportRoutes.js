@@ -1,6 +1,8 @@
 const path = require('path'),
-  express = require('express');
-(router = express.Router()),multerModule = require('../utils/multerStorage.js');
+  express = require('express'),
+  router = express.Router(),
+  multerModule = require('../utils/multerStorage.js');
+
 //Multer Storage
 
 router.get('/', (req, res) => {
