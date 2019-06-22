@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 // const favicon = require('express-favicon');
 // const mongooseConnector = require('./config/mongoose')
-const reportRoutes = require('./server/config/reportRoutes');
+const reportRoutes = require('./server/routes/reportRoutes');
 const PORT = 8000;
 const multer = require('multer');
 

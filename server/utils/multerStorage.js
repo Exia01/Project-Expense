@@ -1,7 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 
-//Set storage engine || replace ability not implemented 
+//Set storage engine --> replace ability not implemented 
 const storage = multer.diskStorage({
   destination: './client/public/uploads/',
   filename: function (req, file, cb) {
