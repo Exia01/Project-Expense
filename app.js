@@ -1,21 +1,30 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+const express 				= require('express');
+const path 					= require('path');
 // const favicon = require('express-favicon');
 // const mongooseConnector = require('./config/mongoose')
-const reportRoutes = require('./server/routes/reportRoutes');
-const PORT = 8000;
-const multer = require('multer');
+const reportRoutes 			= require('./server/routes/reportRoutes');
+const accountRoutes 		= require('./server/routes/accountRoutes');
+const multer 				= require('multer');
+const passport          	= require('passport')
+const PORT 					= process.env.PORT || 8000;
 
 const app = express();
 
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
+//Passport Configuration
+app.use(
+	require('express-session')({
+		secret: 'This That Those Then True',
+		resave: false,
+		saveUninitialized: false
+	})
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-// views and static files
-app.set('views', path.join(__dirname, '/client/public/views'));
-app.use(express.static(path.join(__dirname, '/client/public/assets/css')));
-app.use(express.static(path.join(__dirname, '/client/public/assets/js')));
+
+//Express body parser
+app.use(express.urlencoded({extended: true}));
+
 
 //Multer Storage
 // ('./server/utils/multerStorage.js')
@@ -28,7 +37,10 @@ app.use(express.static(path.join(__dirname, '/client/public/assets/js')));
 // });
 
 app.use('/', reportRoutes);
+app.use('/accounts', accountRoutes);
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
 	console.log(`Server Listening on port ${PORT}`);
 });
+
+// Passport npm: https://www.npmjs.com/package/passport
