@@ -6,14 +6,18 @@ const path = require('path'),
 //Multer Storage
 
 router.get('/', (req, res) => {
+  // res.render('test');
   res.render('test');
 });
+
 router.post('/upload', (req, res) => {
   multerModule.upload(req, res, (err) => {
     if (err) {
-    res.render('test', {msg:err})
+      console.log("Failed to Upload");
+      res.render('test', {msg:err})
     } else {
-      // console.log(req.file)
+      console.log("** FILE UPLOADED **");
+      console.log(req.file);
       res.redirect('/')
     }
   })

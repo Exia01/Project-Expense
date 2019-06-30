@@ -5,7 +5,7 @@ const path 					= require('path');
 const reportRoutes 			= require('./server/routes/reportRoutes');
 const accountRoutes 		= require('./server/routes/accountRoutes');
 const multer 				= require('multer');
-const passport          	= require('passport')
+const passport          	= require('passport');
 const PORT 					= process.env.PORT || 8000;
 
 const app = express();
@@ -25,6 +25,12 @@ app.use(passport.session());
 //Express body parser
 app.use(express.urlencoded({extended: true}));
 
+// EJS Templating
+app.set('view engine', 'ejs');
+
+// Public Folder
+app.use(express.static('./client/public'));
+
 
 //Multer Storage
 // ('./server/utils/multerStorage.js')
@@ -37,7 +43,7 @@ app.use(express.urlencoded({extended: true}));
 // });
 
 app.use('/', reportRoutes);
-app.use('/accounts', accountRoutes);
+// app.use('/accounts', accountRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server Listening on port ${PORT}`);
