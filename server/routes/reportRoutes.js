@@ -6,8 +6,7 @@ const path = require('path'),
 //Multer Storage
 
 router.get('/', (req, res) => {
-  // res.render('test');
-  res.render('test');
+  res.render('../client/public/views/test');
 });
 
 router.post('/upload', (req, res) => {
@@ -21,6 +20,10 @@ router.post('/upload', (req, res) => {
       res.redirect('/')
     }
   })
+});
+
+router.get('/add', (req, res) => {
+  res.send("Hit ADD");
 });
 
 module.exports = router;
