@@ -1,9 +1,10 @@
 const express = require('express');
 const router  = express.Router();
+const path    = require('path');
 const fs      = require('fs');
+const csvtojson = require('csvtojson');
 
 router.get('/', (req, res) => {
-
     // This block of code will read from the "example.csv" file.
     // It's important to include the "utf8" parameter or the code will provide stream data (garbage)
     // The code will store the contents of the reading inside the variable "data"
@@ -48,6 +49,32 @@ router.get('/', (req, res) => {
     res.render('../client/public/views/generate/index');
     // res.render('/generate/index')
 
+});
+
+
+router.get('/convert', (req, res) => {
+
+    // console.log("---------------------");
+    // const filePath = path.parse(__dirname + "/example.csv");
+    // console.log(filePath);
+
+
+    const csvFilePath = '/Users/Enotion/development/Projects/CURRENT_PROJECTS/Project-Expense/server/routes/example.csv';
+    csvtojson()
+        .fromFile(csvFilePath)
+        .then((jsonObj) => {
+
+            jsonObj.forEach(item => {
+                console.log("---------------------");
+                console.log(item);
+            })
+
+            // console.log("---------------------");
+            // console.log(jsonObj);   
+            console.log("CSV file converted to JSON Object");
+
+            res.send("Convert or perish");
+        });
 });
 
 
