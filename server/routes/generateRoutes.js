@@ -46,7 +46,7 @@ router.get('/', (req, res) => {
     });
 
 
-    res.render('../client/public/views/generate/index');
+    res.render('../client/public/views/generate/index', { data: dataArr });
     // res.render('/generate/index')
 
 });
@@ -54,6 +54,8 @@ router.get('/', (req, res) => {
 
 router.get('/convert', (req, res) => {
 
+    // create an Array to hold the JSON data being parsed
+    let outerDataArr = [];
     // console.log("---------------------");
     // const filePath = path.parse(__dirname + "/example.csv");
     // console.log(filePath);
@@ -63,23 +65,44 @@ router.get('/convert', (req, res) => {
     csvtojson()
         .fromFile(csvFilePath)
         .then((jsonObj) => {
+            // create an Array to hold the JSON data being parsed
+            let dataArr = [];
 
             jsonObj.forEach(item => {
-                console.log("---------------------");
-                console.log(item);
+                // console.log("---------------------");
+                // console.log(item);
+                dataArr.push(item);
             })
 
             // console.log("---------------------");
             // console.log(jsonObj);   
             console.log("CSV file converted to JSON Object");
 
-            res.send("Convert or perish");
+            console.log("---------------------");
+            console.log("Data: ***********");
+            console.log(dataArr);
+            
+            // Parse through data
+            console.log("**********************");
+            console.log("Data: at index 0");
+            console.log(dataArr[0]);
+            console.log("Student Name: " + dataArr[0]['Student Name']);
+            console.log("Gender: " + dataArr[0]['Gender']);
+            console.log("Class Level: " + dataArr[0]['Class Level']);
+            console.log("Home State: " + dataArr[0]['Home State']);
+            console.log("Major: " + dataArr[0]['Major']);
+            console.log("Activities: " + dataArr[0]['Extracurricular Activity']);
+            console.log("**********************");
+
+            if(dataArr.length){
+                console.log("Data Array Not Empty");
+            } else {
+                console.log("Data Array Empty");
+            }
+            // Send a RESPONSE
+            // res.send("Convert or perish");
+            res.render('../client/public/views/generate/index', { dataArr: dataArr });
         });
 });
-
-
-
-
-
 
 module.exports = router;

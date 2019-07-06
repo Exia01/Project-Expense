@@ -22,28 +22,36 @@
             <table class="highlight responsive-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Item Name</th>
-                        <th>Item Price</th>
+                        <th>Student Name</th>
+                        <th>Gender</th>
+                        <th>Class Level</th>
+                        <th>Home State</th>
+                        <th>Major</th>
+                        <th>Extracurricular Activities</th>
                     </tr>
                 </thead>
             
-                <tbody>
+                <tbody id="table-data">
+                <% dataArr.forEach( function(item) {  %>
                     <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>$0.87</td>
-                    </tr>
-                    <tr>
-                        <td>Alan</td>
-                        <td>Jellybean</td>
-                        <td>$3.76</td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan</td>
-                        <td>Lollipop</td>
-                        <td>$7.00</td>
-                    </tr>
+                        <td><%= item['Student Name'] %></td>
+                        <td><%= item['Gender'] %></td>
+                        <td><%= item['Class Level'] %></td>
+                        <td><%= item['Home State'] %></td>
+                        <td><%= item['Major'] %></td>
+                        <td><%= item['Extracurricular Activity'] %></td>
+                    </tr> 
+                <% }); %>
+                <!-- <% for(var i = 0; i < dataArr.length; i++) {  %>
+                <tr>
+                    <td><%= dataArr[i]['Student Name'] %></td>
+                    <td><%= dataArr[i]['Gender'] %></td>
+                    <td><%= dataArr[i]['Class Level'] %></td>
+                    <td><%= dataArr[i]['Home State'] %></td>
+                    <td><%= dataArr[i]['Major'] %></td>
+                    <td><%= dataArr[i]['Activities'] %></td>
+                </tr>
+                <% }; %> -->
                 </tbody>
             </table>
         </div>

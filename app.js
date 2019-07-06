@@ -34,7 +34,7 @@ app.use(passport.session());
 //Express body parser
 app.use(express.urlencoded({extended: true}));
 
-//Multer Storage
+//Multer Storage=
 // ('./server/utils/multerStorage.js')
 //Mongoose connection --> need import from config
 // mongooseConnector.mongooseConnection().then((res) => {
