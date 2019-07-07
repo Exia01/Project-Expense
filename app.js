@@ -45,7 +45,8 @@ app.use(express.urlencoded({extended: true}));
 // });
 
 app.use('/', reportRoutes);
-app.use('/report', reportRoutes);
+// *** Temp Route for Testing data conversion *** //
+// app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
 

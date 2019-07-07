@@ -46,20 +46,16 @@ router.get('/', (req, res) => {
     });
 
 
-    res.render('../client/public/views/generate/index', { data: dataArr });
-    // res.render('/generate/index')
+    res.render('../client/public/views/generate/index');
 
 });
 
 
 router.get('/convert', (req, res) => {
 
-    // create an Array to hold the JSON data being parsed
-    let outerDataArr = [];
-    // console.log("---------------------");
+    // Need to Fix the PATH to File
     // const filePath = path.parse(__dirname + "/example.csv");
     // console.log(filePath);
-
 
     const csvFilePath = '/Users/Enotion/development/Projects/CURRENT_PROJECTS/Project-Expense/server/routes/example.csv';
     csvtojson()
@@ -74,31 +70,25 @@ router.get('/convert', (req, res) => {
                 dataArr.push(item);
             })
 
-            // console.log("---------------------");
-            // console.log(jsonObj);   
             console.log("CSV file converted to JSON Object");
 
-            console.log("---------------------");
-            console.log("Data: ***********");
-            console.log(dataArr);
+            // console.log("---------------------");
+            // console.log("Data: ***********");
+            // console.log(dataArr);
             
-            // Parse through data
-            console.log("**********************");
-            console.log("Data: at index 0");
-            console.log(dataArr[0]);
-            console.log("Student Name: " + dataArr[0]['Student Name']);
-            console.log("Gender: " + dataArr[0]['Gender']);
-            console.log("Class Level: " + dataArr[0]['Class Level']);
-            console.log("Home State: " + dataArr[0]['Home State']);
-            console.log("Major: " + dataArr[0]['Major']);
-            console.log("Activities: " + dataArr[0]['Extracurricular Activity']);
-            console.log("**********************");
+            // *** TESTING *** Parse through data
+            // console.log("**********************");
+            // console.log("Data: at index 0");
+            // console.log(dataArr[0]);
+            // console.log("Student Name: " + dataArr[0]['Student Name']);
+            // console.log("Gender: " + dataArr[0]['Gender']);
+            // console.log("Class Level: " + dataArr[0]['Class Level']);
+            // console.log("Home State: " + dataArr[0]['Home State']);
+            // console.log("Major: " + dataArr[0]['Major']);
+            // console.log("Activities: " + dataArr[0]['Extracurricular Activity']);
+            // console.log("**********************");
+            // *** TESTING *** 
 
-            if(dataArr.length){
-                console.log("Data Array Not Empty");
-            } else {
-                console.log("Data Array Empty");
-            }
             // Send a RESPONSE
             // res.send("Convert or perish");
             res.render('../client/public/views/generate/index', { dataArr: dataArr });
