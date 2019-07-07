@@ -3,12 +3,21 @@ const path 					= require('path');
 // const favicon = require('express-favicon');
 // const mongooseConnector = require('./config/mongoose')
 const reportRoutes 			= require('./server/routes/reportRoutes');
+const generateRoutes		= require('./server/routes/generateRoutes')
 const accountRoutes 		= require('./server/routes/accountRoutes');
 const multer 				= require('multer');
-const passport          	= require('passport')
+const passport          	= require('passport');
+const fs 					= require('fs');
 const PORT 					= process.env.PORT || 8000;
 
+// Create an instance of Express
 const app = express();
+
+// EJS Templating
+app.set('view engine', 'ejs');
+
+// Public Folder
+app.use(express.static('./client/public'));
 
 //Passport Configuration
 app.use(
@@ -25,8 +34,7 @@ app.use(passport.session());
 //Express body parser
 app.use(express.urlencoded({extended: true}));
 
-
-//Multer Storage
+//Multer Storage=
 // ('./server/utils/multerStorage.js')
 //Mongoose connection --> need import from config
 // mongooseConnector.mongooseConnection().then((res) => {
@@ -37,7 +45,10 @@ app.use(express.urlencoded({extended: true}));
 // });
 
 app.use('/', reportRoutes);
+// *** Temp Route for Testing data conversion *** //
+// app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
+app.use('/read', generateRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server Listening on port ${PORT}`);

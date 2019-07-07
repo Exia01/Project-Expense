@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Let's Read Data from a File:</h1>
+
+            <a class="waves-effect waves-light btn" href="#">Select File</a>
+            <hr>
+        </div>
+
+        <div class="row">
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Gender</th>
+                        <th>Class Level</th>
+                        <th>Home State</th>
+                        <th>Major</th>
+                        <th>Extracurricular Activities</th>
+                    </tr>
+                </thead>
+            
+                <tbody id="table-data">
+                <% dataArr.forEach( function(item) {  %>
+                    <tr>
+                        <td><%= item['Student Name'] %></td>
+                        <td><%= item['Gender'] %></td>
+                        <td><%= item['Class Level'] %></td>
+                        <td><%= item['Home State'] %></td>
+                        <td><%= item['Major'] %></td>
+                        <td><%= item['Extracurricular Activity'] %></td>
+                    </tr> 
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

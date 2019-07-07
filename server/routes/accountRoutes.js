@@ -5,10 +5,6 @@ const LocalStrategy     = require('passport-local')
 const User              = require('../models/UserSchema')
 const userMiddleware    = require('../middleware/authUser')
 
-
-const passport          = require('passport')
-const LocalStrategy     = require('passport-local')
-const User              = require('../models/UserSchema')
   // passport setup
 passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser());
@@ -37,3 +33,6 @@ router.post("/login", passport.authenticate("local", {
     console.log("Logged In")
     res.send("Logged in!")
 })
+
+
+module.exports = router;
