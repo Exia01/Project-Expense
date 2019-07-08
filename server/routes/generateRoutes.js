@@ -56,8 +56,8 @@ router.get('/convert', (req, res) => {
     // Need to Fix the PATH to File
     // const filePath = path.parse(__dirname + "/example.csv");
     // console.log(filePath);
-
-    const csvFilePath = '/Users/Enotion/development/Projects/CURRENT_PROJECTS/Project-Expense/server/routes/example.csv';
+    console.log(path.join(__dirname, '../../client/public/uploads/example.csv'))
+    const csvFilePath = path.join(__dirname, '../../client/public/uploads/example.csv')
     csvtojson()
         .fromFile(csvFilePath)
         .then((jsonObj) => {
@@ -91,7 +91,7 @@ router.get('/convert', (req, res) => {
 
             // Send a RESPONSE
             // res.send("Convert or perish");
-            res.render('../client/public/views/generate/index', { dataArr: dataArr });
+            res.send(dataArr)
         });
 });
 
