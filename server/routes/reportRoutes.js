@@ -6,7 +6,7 @@ const path = require('path'),
 //Multer Storage
 
 router.get('/', (req, res) => {
-  res.render('../client/public/views/test');
+  res.render('../../');
 });
 
 router.post('/upload', (req, res) => {
