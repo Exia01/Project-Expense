@@ -4,13 +4,14 @@ import axios from 'axios';
 const FileUpload = () => {
     //Setup State
 
+
     return (
         <Fragment>
             <div className="container">
                 <h1>Upload CSV or Excel File:</h1>
                 <form action="#">
                     <div class="file-field input-field">
-                        <div class="btn">
+                        <div class="btn blue lighten-2">
                             <span>Select File</span>
                             <input type="file" />
                         </div>
