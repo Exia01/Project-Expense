@@ -11,6 +11,13 @@ const FileUpload = () => {
     const onChange = (e) => {
         setFile(e.target.files[0])
         setFilename(e.target.files[0].name);
+
+        console.log('*********')
+        // console.log(e);
+        console.log(e.target);
+        console.log(e.target.value);
+        // console.log(e.srcElement, '$$$');
+        console.log(e.target.files[0]);
     }
 
     const onSubmit = async e => {
@@ -23,7 +30,7 @@ const FileUpload = () => {
         console.log(e.target);
         console.log(e.target.value);
         // console.log(e.srcElement, '$$$');
-        // console.log(e.target.files[0]);
+        console.log(e.target.files[0]);
 
 
         // formData.append('file', file);
@@ -57,11 +64,11 @@ const FileUpload = () => {
         <Fragment>
             <div className="container">
                 <h1>Upload CSV or Excel File:</h1>
-                <form onSubmit={onSubmit} method="post" enctype="multipart/form-data">
+                <form method="post" onSubmit={onSubmit} enctype="multipart/form-data">
                     <div class="file-field input-field">
                         <div class="btn blue lighten-2">
                             <span>Select File</span>
-                            <input type="file" onChange={onChange} />
+                            <input type="file" onChange={onChange}  />
                         </div>
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text" />
