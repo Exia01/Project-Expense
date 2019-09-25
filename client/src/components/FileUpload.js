@@ -1,14 +1,21 @@
-import React, { Fragment, useState } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import axios from 'axios';
 
+// class FileUpload extends Component { // }
 const FileUpload = () => {
     //Setup State
+    var state = {
+        file: null
+    }
+
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
     const [uploadFile, setUploadedFile] = useState({});
     const [message, setMessage] = useState('');
 
     const onChange = (e) => {
+    // onChange = (e) => {
+
         setFile(e.target.files[0])
         setFilename(e.target.files[0].name);
 
@@ -21,16 +28,14 @@ const FileUpload = () => {
     }
 
     const onSubmit = async e => {
+    // onSubmit = async e => {
         e.preventDefault();
         console.log('entering submit ...');
         const formData = new FormData();
 
         console.log('*********')
         // console.log(e);
-        console.log(e.target);
-        console.log(e.target.value);
-        // console.log(e.srcElement, '$$$');
-        console.log(e.target.files[0]);
+        console.log(this.state);
 
 
         // formData.append('file', file);
@@ -60,6 +65,7 @@ const FileUpload = () => {
         // }
     };
 
+    // render() {
     return (
         <Fragment>
             <div className="container">
@@ -75,7 +81,7 @@ const FileUpload = () => {
                         </div>
                     </div>
                     <div>
-                        <button class="btn waves-effect waves-light" type="submit" >Submit
+                        <button class="btn waves-effect waves-light" type="submit" onSubmit={onSubmit}>Submit
                             <i class="material-icons right send"></i>
                         </button>
                     </div>
@@ -84,6 +90,7 @@ const FileUpload = () => {
             <br/>
         </Fragment>
     )
+    // }
 }
 
 export default FileUpload;
