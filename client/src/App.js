@@ -4,6 +4,7 @@ import './App.css';
 import Generate from './Generate/Generate';
 import FileUpload from './components/FileUpload';
 import Nav from './components/Navigation';
+import FileClassUpload from './components/FileClassUpload';
 
 // function App() {
 //   // BrowserRouter enables links
@@ -29,7 +30,9 @@ class App extends Component {
     return (
       <div className="App">
         <Nav />
-        <FileUpload /> 
+        <FileClassUpload />
+        {/* <FileUpload />  */}
+
       </div>
     );
   }
