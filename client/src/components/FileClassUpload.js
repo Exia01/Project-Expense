@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 
 
@@ -25,6 +26,14 @@ class FileClassUpload extends Component {
     onSubmitHandler = (e) => {
         e.preventDefault();
         console.log("On submit...");
+
+        const data = new FormData();
+        data.append('file', this.state.selectedFile, this.state.selectedFile.name)
+        axios.post('"http://localhost:8000/upload', { data })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => console.log(err));
     }
 
     onClickHandler = (e) => {
@@ -39,14 +48,14 @@ class FileClassUpload extends Component {
                     <div className="file-field input-field">
                         <div class="btn blue lighten-2">
                             <span>Select File</span>
-                            <input type="file" onChange={this.onChangeHandler}/>
+                            <input type="file" name="file" onChange={this.onChangeHandler}/>
                         </div>
                         <div class="file-path-wrapper">
                             <input className="file-path validate" type="text" />
                         </div>
                     </div>
                     <div>
-                        <button className="btn waves-effect waves-light" type="" onSubmit={this.onSubmitHandler} >Submit
+                        <button className="btn waves-effect waves-light" type="" onSubmit={this.onSubmitHandler} >Upload
                         </button>
                     </div>
                 </form>
