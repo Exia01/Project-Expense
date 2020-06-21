@@ -24,5 +24,10 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1"
-  }
+  },
+  "devDependencies": {
+    "concurrency": "^0.1.4",
+    "nodemon": "^2.0.4"
+  },
+  "proxy": "http://localhost:8000/"
 }

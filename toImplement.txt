@@ -6,3 +6,12 @@
 https://www.youtube.com/channel/UCfYTu_qAO5T7a-8rC_74Ypw/playlists
 
 https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w/playlists
+
+
+
+
+How to use express with newer syntax
+https://levelup.gitconnected.com/a-complete-guide-build-a-scalable-3-tier-architecture-with-mern-stack-es6-ca129d7df805
+
+
+Clean architecture: https://www.youtube.com/watch?v=CnailTcJV_U

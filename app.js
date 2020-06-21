@@ -13,7 +13,7 @@ const PORT 					= process.env.PORT || 8000;
 // Create an instance of Express
 const app = express();
 
-///cors middleware
+///cors middleware 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
