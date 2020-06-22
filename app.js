@@ -8,7 +8,7 @@ const accountRoutes 		= require('./server/routes/accountRoutes');
 const multer 				= require('multer');
 const passport          	= require('passport');
 const fs 					= require('fs');
-const PORT 					= process.env.PORT || 8000;
+// const PORT 					= process.env.PORT || 8000;
 
 // Create an instance of Express
 const app = express();
@@ -18,12 +18,18 @@ app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
-  });
+});
+
 // EJS Templating
 app.set('view engine', 'ejs');
 
-// Public Folder
-app.use(express.static('./client/public'));
+//Express body parser
+app.use(express.urlencoded({extended: true}));
+
+// views and static files
+app.set('views', path.join(__dirname, '/client/public/views/'));
+app.use(express.static('./client/public/views/'));
+
 
 //Passport Configuration
 app.use(
@@ -37,8 +43,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//Express body parser
-app.use(express.urlencoded({extended: true}));
 
 //Multer Storage=
 // ('./server/utils/multerStorage.js')
@@ -56,7 +60,7 @@ app.use('/', reportRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT=8000, () => {
 	console.log(`Server Listening on port ${PORT}`);
 });
 

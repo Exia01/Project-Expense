@@ -18,12 +18,17 @@ const storage = multer.diskStorage({
     storage: storage,  //using attributes from storage
     limits: {fileSize: 10000000},
     fileFilter: function (req, file, cb) {
-      console.log(file)
+      console.log("file upload: ", file)
       checkFileType(file, cb)
     }
   }).single('testfile')//from the input field, uploading 'This' file
 
   function checkFileType(file, cb){
+    console.log("Checking File Type, ",file);
+    
+    if(!file){
+      cb('No File Provided!');
+    }
     //Allowed extensions 
     const fileTypes = /.*\.xlsx|xls|csv|sheet|vnd.ms-excel/g
     const extName = fileTypes.test(path.extname(file.originalname).toLowerCase())

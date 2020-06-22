@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "server": "nodemon app.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "server": "app.js",
+    "client": "yarn --cwd client run start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "author": "Erik, Jose",
   "license": "ISC",
@@ -28,6 +28,5 @@
   "devDependencies": {
     "concurrency": "^0.1.4",
     "nodemon": "^2.0.4"
-  },
-  "proxy": "http://localhost:8000/"
+  }
 }
