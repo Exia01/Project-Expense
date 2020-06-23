@@ -5,13 +5,14 @@ const mongoose = require('mongoose'),
 
 mongoose.set('useFindAndModify', false);
 
+const uri = process.env.ATLAS_URI;
 const mongooseConnection = async () => {
-    await mongoose.connect(
-        `mongodb+srv://admin:WVm6fwYgsLyvOvHl@main-cluster-hpysy.mongodb.net/test?retryWrites=true&w=majority`, {
+    await mongoose.connect(uri, {
             useNewUrlParser: true,
             autoReconnect: true,
             reconnectTries: 2,
-            reconnectInterval: 3000
+            reconnectInterval: 3000,
+            useCreateIndex:true
         }
     );
 };
