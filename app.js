@@ -56,11 +56,16 @@ app.use(
 	const generateRoutes		= require('./server/routes/generateRoutes')
 	const accountRoutes 		= require('./server/routes/accountRoutes');
 
+	const routes 			= require('./server/api/')
+
+
 	app.use('/', reportRoutes);
 	// *** Temp Route for Testing data conversion *** //
 	// app.use('/report', reportRoutes);
 	app.use('/accounts', accountRoutes);
 	app.use('/read', generateRoutes);
+
+	app.use('/api/files', routes.file)
 	
 	
 	app.listen(PORT, () => {
