@@ -1,30 +1,29 @@
+require('dotenv').config({path: __dirname + '/server/config/.env'}) //env file setup in config
 const express 				= require('express');
 const path 					= require('path');
 // const favicon = require('express-favicon');
-// const mongooseConnector = require('./config/mongoose')
-const reportRoutes 			= require('./server/routes/reportRoutes');
-const generateRoutes		= require('./server/routes/generateRoutes')
-const accountRoutes 		= require('./server/routes/accountRoutes');
+const cors 					= require('cors');
 const multer 				= require('multer');
 const passport          	= require('passport');
 const fs 					= require('fs');
-// const PORT 					= process.env.PORT || 8000;
+const mongoose 				= require('mongoose');
+const mongooseConnector 	= require('./server/config/mongoose')
+const PORT 					= process.env.PORT || 8000;
+
+
 
 // Create an instance of Express
 const app = express();
 
-///cors middleware 
-app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	next();
-});
+
+
+app.use(cors()); //enables CORS 
 
 // EJS Templating
 app.set('view engine', 'ejs');
+app.use(express.json()); //enables parsing of json
 
-//Express body parser
-app.use(express.urlencoded({extended: true}));
+//Express body parser --> not needed in the new version of express.
 
 // views and static files
 app.set('views', path.join(__dirname, '/client/public/views/'));
@@ -38,31 +37,35 @@ app.use(
 		resave: false,
 		saveUninitialized: false
 	})
-);
-app.use(passport.initialize());
-app.use(passport.session());
+	);
+	app.use(passport.initialize());
+	app.use(passport.session());
+	
+	
+	
+	//Multer Storage=
+	// ('./server/utils/multerStorage.js')
+	mongooseConnector.mongooseConnection().then((res) => {
+		console.log('Connected to DB \n');
+	})
+	.catch(err => {
+		console.log('ERROR', err.message);
+	});
+	
+	const reportRoutes 			= require('./server/routes/reportRoutes');
+	const generateRoutes		= require('./server/routes/generateRoutes')
+	const accountRoutes 		= require('./server/routes/accountRoutes');
 
-
-
-//Multer Storage=
-// ('./server/utils/multerStorage.js')
-//Mongoose connection --> need import from config
-// mongooseConnector.mongooseConnection().then((res) => {
-//   console.log('Connected to DB \n');
-// })
-// .catch(err => {
-//   console.log('ERROR', err.message);
-// });
-
-app.use('/', reportRoutes);
-// *** Temp Route for Testing data conversion *** //
-// app.use('/report', reportRoutes);
-app.use('/accounts', accountRoutes);
-app.use('/read', generateRoutes);
-
-app.listen(PORT=8000, () => {
-	console.log(`Server Listening on port ${PORT}`);
-});
-
-// Passport npm: https://www.npmjs.com/package/passport
-//implement cors: https://enable-cors.org/server_expressjs.html
+	app.use('/', reportRoutes);
+	// *** Temp Route for Testing data conversion *** //
+	// app.use('/report', reportRoutes);
+	app.use('/accounts', accountRoutes);
+	app.use('/read', generateRoutes);
+	
+	
+	app.listen(PORT, () => {
+		console.log(`Server Listening on port ${PORT}`);
+	});
+	
+	// Passport npm: https://www.npmjs.com/package/passport
+	//implement cors: https://enable-cors.org/server_expressjs.html
