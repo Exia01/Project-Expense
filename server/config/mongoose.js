@@ -1,18 +1,18 @@
-const mongoose = require('mongoose'),
-    path = require('path'),
-    fs = require('fs'),
-    models = path.join(__dirname, '../models');
+const mongoose = require('mongoose')
 
 mongoose.set('useFindAndModify', false);
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.DATABASE_URL;
 const mongooseConnection = async () => {
-    await mongoose.connect(uri, {
-            useNewUrlParser: true,
-            autoReconnect: true,
-            reconnectTries: 2,
-            reconnectInterval: 3000,
-            useCreateIndex:true
-        }
+    return await mongoose.connect(uri, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: true,
+    }
     );
+};
+
+module.exports = {
+    mongooseConnection: mongooseConnection
 };

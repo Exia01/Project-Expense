@@ -5,24 +5,23 @@ const path = require('path'),
 
 //Multer Storage
 router.get('/', (req, res) => {
-  // res.render('../../');
   res.render('test');
 });
 
 router.post('/upload', (req, res) => {
-  if(!req.file){
-    res.render('test', {msg:"No File Provided"})
+  if(!req.body) {
+    res.render('test', { msg: "No File Provided" })
+  } else {
+    multerModule.upload(req, res, (err) => {
+      if (err) {
+        console.log("Failed to Upload");
+        res.render('test', { msg: err })
+      } else {
+        console.log("** FILE UPLOADED **");
+        res.redirect('/')
+      }
+    })
   }
-  multerModule.upload(req, res, (err) => {
-    if (err) {
-      console.log("Failed to Upload");
-      res.render('test', {msg:err})
-    } else {
-      console.log("** FILE UPLOADED **");
-      console.log(req.file);
-      res.redirect('/')
-    }
-  })
 });
 
 router.get('/add', (req, res) => {
