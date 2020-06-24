@@ -3,6 +3,7 @@
 const router = require('express').Router()
 const File = require('../models/file.model')
 
+const multerModule = require('../utils/multerStorage.js');
 const getAllFiles = async (req, res, next) => {
     try {
         const data = File.find()
@@ -21,16 +22,17 @@ const getAllFiles = async (req, res, next) => {
 router.route('/').get(getAllFiles)
 
 router.route('/upload').post((req, res) => {
+console.log(req.body == null)
     if (!req.body) {
-        res.render('test', { msg: "No File Provided" })
+        res.status(403).json({ message: 'No File Provided' })
     } else {
         multerModule.upload(req, res, (err) => {
             if (err) {
                 console.log("Failed to Upload");
-                res.render('test', { msg: err })
+                res.status(403).json({ message: err })
             } else {
                 console.log("** FILE UPLOADED **");
-                res.redirect('/')
+                res.status(403).json({ message: "Worked!" })
             }
         })
     }
