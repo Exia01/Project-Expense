@@ -1,7 +1,7 @@
-// app.patch
-
+// router.patch
 const router = require('express').Router();
 const File = require('../models/file.model');
+const fileService = require('../services/file')
 
 const multerModule = require('../utils/multerStorage.js');
 const getAllFiles = async (req, res, next) => {
@@ -46,8 +46,7 @@ router.route('/').get(getAllFiles);
 router.post('/upload', multerModule.upload.single('testfile'), async (req, res, next) => {
     try {
         const tempFile = req.file;
-        console.log(req.file);
-
+        // console.log(req.file);
         // make sure file is available
         if (!tempFile) {
             res.status(400).json({
@@ -55,16 +54,39 @@ router.post('/upload', multerModule.upload.single('testfile'), async (req, res, 
                 data: 'No file provided.'
             });
         } else {
+            let newFileDoc = {
+                name:tempFile.filename,
+                isActive:true, 
+                date: Date.now()
+                // originalName: tempFile.originalname,
+                // destination: tempFile.destination,
+                // path: tempFile.path,
+                // size: tempFile.size,
+                // mimeType: tempFile.mimetype,
+            }
+            fileService.file_new(req, res, newFileDoc, next).then(newFile =>{
+                res.json({
+                    status: true,
+                    message: 'File is uploaded.',
+                    data: {
+                        name: tempFile.originalname,
+                        mimetype: tempFile.mimetype,
+                        size: tempFile.size
+                    }
+                })
+            }).catch(err=>{
+                res.status(500).json({ err })
+            })
+            // res.json({
+            //     status: true,
+            //     message: 'File is uploaded.',
+            //     data: {
+            //         name: tempFile.originalname,
+            //         mimetype: tempFile.mimetype,
+            //         size: tempFile.size
+            //     }
+            // });
             // send response
-            res.json({
-                status: true,
-                message: 'File is uploaded.',
-                data: {
-                    name: tempFile.originalname,
-                    mimetype: tempFile.mimetype,
-                    size: tempFile.size
-                }
-            });
         }
 
     } catch (err) {
