@@ -9,11 +9,16 @@ const storage = multer.diskStorage({
     cb(null, './client/public/uploads/');
   },
   filename: function (req, file, cb) {
+    if (!file.originalname) {
+      return cb('No File name provided');
+    }
+
     let name = file.originalname.split(".")[0]
-    cb(
+    return cb(
       null,
       `${name}${Date.now()}${path.extname(file.originalname)}`
     );
+
   }
 });
 
@@ -24,22 +29,16 @@ const upload = multer({
   storage: storage,  //using attributes from storage
   limits: { fileSize: 10000000 },
   fileFilter: function (req, file, cb) {
-    console.log("file upload: ", file)
+    // cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", file), false);
     checkFileType(file, cb)
-
-    // To reject this file pass `false`, like so:
-    // cb(null, false)
   }
-}).single('testfile')//from the input field, uploading 'This' file
+})
 
 
 
 
 function checkFileType(file, cb) {
-  console.log("Checking File Type, ", file);
-  if (!file) {
-    cb('No File Provided!');
-  }
+
   //Allowed extensions 
   const fileTypes = /.*\.xlsx|xls|csv|sheet|vnd.ms-excel/g
   const extName = fileTypes.test(path.extname(file.originalname).toLowerCase())
@@ -55,3 +54,6 @@ module.exports = {
   storage: storage,
   upload,
 }
+
+
+// if wanting to catch multer errors: https://github.com/expressjs/multer#error-handling
