@@ -9,9 +9,6 @@ const storage = multer.diskStorage({
     cb(null, './client/public/uploads/');
   },
   filename: function (req, file, cb) {
-    if (!file.originalname) {
-      return cb('No File name provided');
-    }
 
     let name = file.originalname.split(".")[0]
     return cb(
@@ -32,8 +29,7 @@ const upload = multer({
     // cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", file), false);
     checkFileType(file, cb)
   }
-})
-
+}).single('testfile')
 
 
 
@@ -47,7 +43,9 @@ function checkFileType(file, cb) {
   if (mimeType && extName) {
     return cb(null, true);
   } else {
-    cb('Excel or CSV format only!');
+    // (Error("Excel or CSV format only!"), false);
+    // return cb(null, false);
+    return cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", file), false);
   }
 }
 module.exports = {
