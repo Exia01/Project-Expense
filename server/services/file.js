@@ -14,7 +14,7 @@ class FileService {
   }
 
   //new
-  async file_new(req, res, obj, next) {
+  async file_new(obj) {
     let file = await new File(obj).save();
     return file;
   }
