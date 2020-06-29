@@ -6,6 +6,7 @@ const reportRoutes 			= require('./server/routes/reportRoutes');
 const generateRoutes		= require('./server/routes/generateRoutes')
 const accountRoutes 		= require('./server/routes/accountRoutes');
 const multer 				= require('multer');
+const morgan    			= require('morgan');
 const passport          	= require('passport');
 const fs 					= require('fs');
 const connectDB 			= require('./server/config/mongoose');
@@ -42,6 +43,10 @@ app.use(passport.session());
 
 //Express body parser
 app.use(express.urlencoded({extended: true}));
+
+// Logging Middleware
+app.use(morgan('dev'));
+// app.use(morgan, 'combined');
 
 //Multer Storage=
 // ('./server/utils/multerStorage.js')
