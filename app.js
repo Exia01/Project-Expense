@@ -8,6 +8,7 @@ const accountRoutes 		= require('./server/routes/accountRoutes');
 const multer 				= require('multer');
 const passport          	= require('passport');
 const fs 					= require('fs');
+const connectDB 			= require('./server/config/mongoose');
 const PORT 					= process.env.PORT || 8000;
 
 // Create an instance of Express
@@ -19,11 +20,13 @@ app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
   });
+
 // EJS Templating
 app.set('view engine', 'ejs');
 
 // Public Folder
-app.use(express.static('./client/public'));
+// app.use(express.static('./client/public'));
+// app.use(express.static('./client/public'));
 
 //Passport Configuration
 app.use(
@@ -49,6 +52,7 @@ app.use(express.urlencoded({extended: true}));
 // .catch(err => {
 //   console.log('ERROR', err.message);
 // });
+connectDB();
 
 app.use('/', reportRoutes);
 // *** Temp Route for Testing data conversion *** //

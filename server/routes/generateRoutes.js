@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
 
     });
 
-
+    
     res.render('../../client/public/views/generate/index');
 
 });
