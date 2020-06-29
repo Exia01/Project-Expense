@@ -2,6 +2,9 @@ const express 				= require('express');
 const path 					= require('path');
 // const favicon = require('express-favicon');
 // const mongooseConnector = require('./config/mongoose')
+
+const authRoutes				= require('./server/routes/api/auth');
+const userRoutes			= require('./server/routes/api/users');
 const reportRoutes 			= require('./server/routes/reportRoutes');
 const generateRoutes		= require('./server/routes/generateRoutes')
 const accountRoutes 		= require('./server/routes/accountRoutes');
@@ -60,6 +63,9 @@ app.use(morgan('dev'));
 connectDB();
 
 app.use('/', reportRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+
 // *** Temp Route for Testing data conversion *** //
 // app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
