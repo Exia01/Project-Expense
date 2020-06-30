@@ -1,5 +1,6 @@
 // router.patch
 const router = require('express').Router();
+const fs = require('fs')
 const File = require('../models/file.model');
 const multer = require('multer')
 const multerModule = require('../utils/multerStorage.js');
@@ -19,12 +20,60 @@ const getAllFiles = async (req, res, next) => {
     }
 };
 
-router.route('/').get(getAllFiles);
+// router.route('/').get(getAllFiles);
+
+
+//Download
+router.route('/:id').delete((req, res, next) => {
+    fileService.file_find(req).then(foundFileObj => fileService.file_delete(foundFileObj.id))
+        .then(deletedFoundObj => {
+            try {
+                fs.unlinkSync(`${deletedFoundObj.fileLocation}`)
+                return res.status(200).json(
+                    { status: "true", message: 'FileDeleted', deleted: deletedFoundObj }
+                )
+                //file removed
+            } catch (err) {
+                console.error("Embedded err", err.message)
+                return res.status(500).json({ status: "false", message: 'Something went sideways', deletedFoundObj: deletedFoundObj })
+            }
+
+        }).catch(err => {
+            console.log("Catch all err, ", err.message);
+            return res.status(404).json({ err: err.message })
+        })
+
+})
 
 
 
-router.post('/upload', function (req, res) {
+//Delete
+router.route('/:id').delete((req, res, next) => {
+    fileService.file_find(req).then(foundFileObj => fileService.file_delete(foundFileObj.id))
+        .then(deletedFoundObj => {
+            try {
+                fs.unlinkSync(`${deletedFoundObj.fileLocation}`)
+                return res.status(200).json(
+                    { status: "true", message: 'FileDeleted', deleted: deletedFoundObj }
+                )
+                //file removed
+            } catch (err) {
+                console.error("Embedded err", err.message)
+                return res.status(500).json({ status: "false", message: 'Something went sideways', deletedFoundObj: deletedFoundObj })
+            }
+
+        }).catch(err => {
+            console.log("Catch all err, ", err.message);
+            return res.status(404).json({ err: err.message })
+        })
+
+})
+
+
+//Upload
+router.post('/', function (req, res) {
     multerModule.upload(req, res, function (err) {
+        // could also combine this try catch with finally and either send err or message
         if (err instanceof multer.MulterError) {
             //Call Error service producer
             console.log('First Error type', err)
@@ -42,8 +91,6 @@ router.post('/upload', function (req, res) {
             });
         }
 
-        console.log(tempFile);
-        
         let newFileDoc = {
             name: tempFile.filename,
             originalName: tempFile.originalname,
@@ -55,15 +102,16 @@ router.post('/upload', function (req, res) {
         }
         // // If upload successful
         fileService.file_new(newFileDoc).then(newFileObj => {
-            console.log("Inside fileService", tempFile);
-            console.log(newFileObj);
+            // console.log("Inside fileService", tempFile);
+            // console.log(newFileObj);
             res.json({
                 status: true,
                 message: 'File Uploaded',
                 data: {
                     name: tempFile.originalname,
                     mimetype: tempFile.mimetype,
-                    size: tempFile.size
+                    size: tempFile.size,
+                    newFileObj
                 }
             })
         }).catch(err => {
@@ -139,6 +187,8 @@ router.post('/upload', function (req, res) {
 //         res.status(403).json({ err });
 //     }
 // });
+
+//OLD IMPLEMENTATION
 // router.post('/upload', multerModule.upload.single('testfile'), async (req, res, next) => {
 //     try {
 //         const tempFile = req.file;
@@ -168,7 +218,7 @@ router.post('/upload', function (req, res) {
 // });
 
 // router
-//   .route('/api/v1/file/:id')
+//   .route('/api/file/:id')
 //   .get(getFile)
 //   .put(updateFile)
 //   .delete(deleteFile);
