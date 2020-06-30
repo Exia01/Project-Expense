@@ -8,7 +8,7 @@ const mongooseConnection = async () => {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useCreateIndex: true,
-        useFindAndModify: true,
+        useFindAndModify: false,
     }
     );
 };

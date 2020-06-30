@@ -19,6 +19,21 @@ class FileService {
     return file;
   }
 
+
+  async file_find(id) {
+    try {
+        let file;
+        file = await File.findById(id);
+        return file;
+    } catch (err) {
+      return err
+    }
+  }
+    //Delete
+    async file_delete(id) {
+      const file = await File.findOneAndRemove(id);
+      return file;
+    }
   
 }
 
