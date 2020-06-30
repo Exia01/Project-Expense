@@ -1,5 +1,6 @@
 const express 				= require('express');
 const path 					= require('path');
+require('dotenv').config({ path: __dirname + '/server/config/.env' });
 // const favicon = require('express-favicon');
 // const mongooseConnector = require('./config/mongoose')
 
