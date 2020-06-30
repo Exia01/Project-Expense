@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require('../../models/UserSchema');
 
 // @route     GET /api/users
@@ -64,8 +65,24 @@ router.post("/create", async (req, res) => {
           //-- Save User to DB
           await user.save();
 
+          //-- JWT Tokens
+          const payload = {
+              user: {
+                id: user._id
+              }
+          }
+
+          jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 360000 }, (err, token) => {
+              if(err) {
+                  console.log(err)
+                  return res.status(500).json(err);
+              }
+              //-- Response
+              res.json({ token: token, success: true, user_obj: user });
+          });
+
           //-- Response
-          res.status(201).json({ success: true, user_obj: user });
+        //   res.status(201).json({ success: true, user_obj: user });
         } catch(err) {
         console.log(err.message);
         res.status(500).send("Server Error");

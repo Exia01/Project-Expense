@@ -1,3 +1,4 @@
+const PORT 					= process.env.PORT || 8000;
 const express 				= require('express');
 const path 					= require('path');
 require('dotenv').config({ path: __dirname + '/server/config/.env' });
@@ -13,8 +14,8 @@ const multer 				= require('multer');
 const morgan    			= require('morgan');
 const passport          	= require('passport');
 const fs 					= require('fs');
+const jwt					= require('jsonwebtoken');
 const connectDB 			= require('./server/config/mongoose');
-const PORT 					= process.env.PORT || 8000;
 
 // Create an instance of Express
 const app = express();
