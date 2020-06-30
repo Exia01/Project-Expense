@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 app.set('view engine', 'ejs');
 
 // Public Folder
-// app.use(express.static('./client/public'));
+app.use(express.static('./client/public'));
 // app.use(express.static('./client/public'));
 
 //Passport Configuration
@@ -40,12 +40,14 @@ app.use(
 		saveUninitialized: false
 	})
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 
 //Express body parser
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
+app.use(express.json({extended: false}));
 
 // Logging Middleware
 app.use(morgan('dev'));
