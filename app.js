@@ -51,7 +51,7 @@ app.use(express.json({extended: false}));
 
 // Logging Middleware
 app.use(morgan('dev'));
-// app.use(morgan, 'combined');
+// app.use(morgan('combined'));
 
 //Multer Storage=
 // ('./server/utils/multerStorage.js')
