@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
 
 
 // @route     POST /api/users/create
-// @desc      User Create Route
+// @desc      User Create/Register Route
 // @access    Public
 router.post("/create", async (req, res) => {
     // -- TESTING -- //
