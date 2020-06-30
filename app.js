@@ -14,7 +14,7 @@ const multer 				= require('multer');
 const morgan    			= require('morgan');
 const passport          	= require('passport');
 const fs 					= require('fs');
-const jwt					= require('jsonwebtoken');
+	const jwt					= require('jsonwebtoken');
 const connectDB 			= require('./server/config/mongoose');
 
 // Create an instance of Express
