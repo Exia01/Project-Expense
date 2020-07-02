@@ -56,6 +56,16 @@ const Register = () => {
             //-- TESTING --//
             console.log(res.data);
 
+            //-- Clear inputs
+            setFormData({
+              first: "",
+              last: "",
+              username: "",
+              email: "",
+              password: "",
+              confirm: "",
+            });
+
         } catch(err) {
             console.error(err.response.data);
             // res.status(500).json(err);

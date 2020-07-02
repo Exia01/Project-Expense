@@ -34,22 +34,24 @@ export const Login = () => {
 
         //-- Send to Server Route
         try {
-            //-- Create 'config' for sending headers
-            const config = {
+              //-- Create 'config' for sending headers
+              const config = {
                 headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-            //-- Stringify User Input
-            const body = JSON.stringify(user);
-            console.log("********");
-            console.log(body);;
+                  "Content-Type": "application/json",
+                },
+              };
+              //-- Stringify User Input
+              const body = JSON.stringify(user);
+              console.log("********");
+              console.log(body);
 
-            const res = await axios.post('/api/auth/login', body, config);
-            //-- TESTING --//
-            console.log(res.data);
+              const res = await axios.post("/api/auth/login", body, config);
+              //-- TESTING --//
+              console.log(res.data);
 
-        } catch(err) {
+              //-- Clear inputs
+              setFormData({ email: "", password: "", confirm: "" });
+            } catch(err) {
             console.error(err.response.data);
             // res.status(500).json(err);
         }
