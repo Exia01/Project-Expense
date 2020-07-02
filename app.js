@@ -1,11 +1,11 @@
-const PORT 					= process.env.PORT || 8000;
+const PORT 					= process.env.PORT || 5001;
 const express 				= require('express');
 const path 					= require('path');
 require('dotenv').config({ path: __dirname + '/server/config/.env' });
 // const favicon = require('express-favicon');
 // const mongooseConnector = require('./config/mongoose')
 
-const authRoutes				= require('./server/routes/api/auth');
+const authRoutes			= require('./server/routes/api/auth');
 const userRoutes			= require('./server/routes/api/users');
 const reportRoutes 			= require('./server/routes/reportRoutes');
 const generateRoutes		= require('./server/routes/generateRoutes')
@@ -14,7 +14,7 @@ const multer 				= require('multer');
 const morgan    			= require('morgan');
 const passport          	= require('passport');
 const fs 					= require('fs');
-	const jwt					= require('jsonwebtoken');
+const jwt					= require('jsonwebtoken');
 const connectDB 			= require('./server/config/mongoose');
 
 // Create an instance of Express

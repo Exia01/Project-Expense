@@ -2,6 +2,8 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import './App.css';
 import Generate from './Generate/Generate';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 import FileUpload from './components/FileUpload';
 
 function App() {
