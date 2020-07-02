@@ -11,11 +11,19 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <FileUpload />
+
+        <Route exact path='/' component={ FileUpload }/>
+        <section className="container">
+          <Switch>
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
+          </Switch>
+        </section>
+        {/* <FileUpload />
 
         <div>
           <Generate />
-        </div>
+        </div> */}
 
       </div>
     </BrowserRouter>
