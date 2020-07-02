@@ -19,11 +19,6 @@ function App() {
             <Route exact path='/register' component={Register} />
           </Switch>
         </section>
-        {/* <FileUpload />
-
-        <div>
-          <Generate />
-        </div> */}
 
       </div>
     </BrowserRouter>
