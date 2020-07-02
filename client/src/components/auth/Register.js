@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import axios from "axios";
 
 
 const Register = () => {
@@ -18,7 +19,7 @@ const Register = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value});
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if(password !== confirm) {
@@ -28,6 +29,37 @@ const Register = () => {
         //-- TESTING --//
         console.log("Submitting");
         console.log(formData);
+
+        //-- create temp user
+        const user = {
+            first, 
+            last, 
+            username,
+            email,
+            password
+        }
+
+        //-- Send to Server Route
+        try {
+            //-- Create 'config' for sending headers
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+            //-- Stringify User Input
+            const body = JSON.stringify(user);
+            console.log("********");
+            console.log(body);;
+
+            const res = await axios.post('/api/users/create', body, config);
+            //-- TESTING --//
+            console.log(res.data);
+
+        } catch(err) {
+            console.error(err.response.data);
+            // res.status(500).json(err);
+        }
     }
 
 

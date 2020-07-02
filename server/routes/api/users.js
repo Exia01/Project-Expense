@@ -20,6 +20,12 @@ router.get("/", (req, res) => {
         });
 });
 
+//-- TESTING --//
+router.post('/', (req, res) => {
+  console.log("Hit Post Route");
+  res.status(200).json({ success: true, data: [{ name: "Bibbs"}] })
+})
+
 
 // @route     POST /api/users/create
 // @desc      User Create/Register Route
@@ -29,7 +35,6 @@ router.post("/create", async (req, res) => {
     console.log(req.body);
     //-- Destructure User POST Request
     let { first, last, username, email, password } = req.body;
-
     //-- Check if User email/username exists in DB
     try {
           let user = await User.findOne({ email });
