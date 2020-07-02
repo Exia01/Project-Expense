@@ -15,26 +15,22 @@ class FileService {
 
   //new
   async file_new(obj) {
-    let file = await new File(obj).save();
+    const file = await new File(obj).save();
     return file;
   }
 
-
+  // Find
   async file_find(id) {
-    try {
-        let file;
-        file = await File.findById(id);
-        return file;
-    } catch (err) {
-      return err
-    }
+    const file = await File.findById(id);
+    return file;
   }
-    //Delete
-    async file_delete(id) {
-      const file = await File.findOneAndRemove(id);
-      return file;
-    }
   
+  //Delete
+  async file_delete(id) {
+    const file = await File.findOneAndRemove(id);
+    return file;
+  }
+
 }
 
 module.exports = new FileService();
