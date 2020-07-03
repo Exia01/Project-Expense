@@ -20,16 +20,24 @@ class allUsers extends Component {
             })
             .catch(err => {
                 console.log(err);
-            })
+            });
     }
 
-    render () {
-        return (
-            <div>
-                <h1>All Users Class Component</h1>
+    render() {
+        // const allUsers = this.state.users.map(item => (
+        //     <p>{item.username}</p>
+        // ));
 
+        return (
+          <div>
+            <h1>All Users Class Component</h1>
+            <div>
+              {this.state.users.map((user) => (
+                <li key={user._id}>{user.username}</li>
+              ))}
             </div>
-        )
+          </div>
+        );
     }
 
 }

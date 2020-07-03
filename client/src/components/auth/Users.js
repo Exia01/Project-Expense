@@ -20,7 +20,9 @@ const Users = () => {
     return (
         <Fragment>
             <h1>All Users</h1>
-            {/* <p>{users}</p> */}
+            {users.map((user) => (
+                <li key={user._id}>{user.username}</li>
+            ))}
         </Fragment>
     )
 }
