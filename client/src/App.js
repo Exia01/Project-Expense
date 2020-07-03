@@ -4,6 +4,8 @@ import './App.css';
 import Generate from './Generate/Generate';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Users from './components/auth/Users';
+import allUsers from './components/auth/allUsers';
 import FileUpload from './components/FileUpload';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
+            <Route exact path='/users' component={Users}/>
+            <Route exact path='/all' component={allUsers}/>
           </Switch>
         </section>
 
