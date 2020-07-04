@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
   });
 
 // EJS Templating
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
 // Public Folder
 app.use(express.static('./client/public'));

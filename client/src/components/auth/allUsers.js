@@ -24,10 +24,6 @@ class allUsers extends Component {
     }
 
     render() {
-        // const allUsers = this.state.users.map(item => (
-        //     <p>{item.username}</p>
-        // ));
-
         return (
           <div>
             <h1>All Users Class Component</h1>
