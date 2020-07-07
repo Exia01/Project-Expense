@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 
 
@@ -66,10 +67,14 @@ const Register = () => {
               confirm: "",
             });
 
+            return <Redirect to="/dashboard" />;
+
         } catch(err) {
             console.error(err.response.data);
             // res.status(500).json(err);
         }
+
+
     }
 
 

@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from 'react';
+import { Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
 
-export const Login = () => {
+const Login = () => {
     //-- Setup State 
     const [formData, setFormData] = useState({
         email: '',
@@ -51,6 +52,10 @@ export const Login = () => {
 
               //-- Clear inputs
               setFormData({ email: "", password: "", confirm: "" });
+
+
+              //-- Redirect to Landing
+              return <Redirect to="/dashboard" />;
             } catch(err) {
             console.error(err.response.data);
             // res.status(500).json(err);
