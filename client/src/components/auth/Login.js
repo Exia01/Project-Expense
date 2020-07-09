@@ -53,7 +53,7 @@ const Login = () => {
       console.log(res.data);
       //-- Clear inputs
       setFormData({ email: "", password: "", confirm: "" });
-      //-- Update toDashboard
+      //-- Update toDashboard State
       setToDash(true);
 
 

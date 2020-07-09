@@ -67,6 +67,8 @@ const Register = () => {
         password: "",
         confirm: "",
       });
+      //-- Update toDashboard State
+      setToDash(true);
 
     } catch(err) {
       console.error(err.response.data);
