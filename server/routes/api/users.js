@@ -9,15 +9,15 @@ const User = require('../../models/UserSchema');
 // @desc      Find All Users Route
 // @access    Public
 router.get("/", (req, res) => {
-    User.find({})
-        .then(allUsers => {
-            // -- TESTING -- //
-            // console.log(allUsers);
-            res.status(200).json(allUsers);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+  User.find({})
+    .then(allUsers => {
+      // -- TESTING -- //
+      // console.log(allUsers);
+      res.status(200).json(allUsers);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 //-- TESTING --//

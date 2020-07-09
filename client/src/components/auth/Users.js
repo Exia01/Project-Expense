@@ -8,11 +8,11 @@ const Users = () => {
     //-- Fetch Users from DB
     useEffect(() => {
         async function getUsers() {
-            let results = await axios.get('/api/users');
-            console.log(results);
-            console.log("*******");
-            console.log(results.data);
-            setUsers(results.data);
+          let results = await axios.get('/api/users');
+          console.log(results);
+          console.log("*******");
+          console.log(results.data);
+          setUsers(results.data);
         }
         //-- Invoke Effect
         getUsers();
