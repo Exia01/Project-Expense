@@ -1,21 +1,18 @@
-const PORT 					= process.env.PORT || 3001;
+require('dotenv').config({path: __dirname + '/server/config/.env'}) //env file setup in config
 const express 				= require('express');
 const path 					= require('path');
 require('dotenv').config({ path: __dirname + '/server/config/.env' });
 // const favicon = require('express-favicon');
-// const mongooseConnector = require('./config/mongoose')
-
-const authRoutes			= require('./server/routes/api/auth');
-const userRoutes			= require('./server/routes/api/users');
-const reportRoutes 			= require('./server/routes/reportRoutes');
-const generateRoutes		= require('./server/routes/generateRoutes')
-const accountRoutes 		= require('./server/routes/accountRoutes');
+const cors 					= require('cors');
 const multer 				= require('multer');
 const morgan    			= require('morgan');
 const passport          	= require('passport');
 const fs 					= require('fs');
-const jwt					= require('jsonwebtoken');
-const connectDB 			= require('./server/config/mongoose');
+const mongoose 				= require('mongoose');
+const mongooseConnector 	= require('./server/config/mongoose')
+const PORT 					= process.env.PORT || 8000;
+
+
 
 // Create an instance of Express
 const app = express();
@@ -75,9 +72,18 @@ app.use('/api/users', userRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
 
+app.use('/', reportRoutes);
+// *** Temp Route for Testing data conversion *** //
+// app.use('/report', reportRoutes);
+app.use('/accounts', accountRoutes);
+app.use('/read', generateRoutes);
+
+app.use('/api/v1/files', routes.file)
+
+
 app.listen(PORT, () => {
 	console.log(`Server Listening on port ${PORT}`);
 });
 
-// Passport npm: https://www.npmjs.com/package/passport
-//implement cors: https://enable-cors.org/server_expressjs.html
+	// Passport npm: https://www.npmjs.com/package/passport
+	//implement cors: https://enable-cors.org/server_expressjs.html

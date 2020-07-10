@@ -1,23 +1,18 @@
-const mongoose = require('mongoose'),
-    path = require('path'),
-    fs = require('fs'),
-    models = path.join(__dirname, '../models');
+const mongoose = require('mongoose')
 
 let uri_admin = process.env.MONGO_URI;
 let uri_local = process.env.MONGO_URI_ATLAS;
 
 mongoose.set('useFindAndModify', false);
 
+const uri = process.env.DATABASE_URL;
 const mongooseConnection = async () => {
     try {
         await mongoose.connect(uri_admin, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
-          // autoReconnect: true,
-          // reconnectTries: 2,
-          // reconnectInterval: 3000
         });
-        console.log("Database Connecting ...");
+        console.log("Connected to DB");
     } catch(err) {
         console.log(err.message);
         // Exit Process with failure
