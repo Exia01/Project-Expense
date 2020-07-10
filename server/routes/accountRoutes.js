@@ -3,7 +3,7 @@ const router            = express.Router();
 const passport          = require('passport')
 const LocalStrategy     = require('passport-local')
 const User              = require('../models/UserSchema')
-const userMiddleware    = require('../middleware/authUser')
+const userMiddleware    = require('../middleware/auth')
 
   // passport setup
 passport.use(new LocalStrategy(User.authenticate()))
