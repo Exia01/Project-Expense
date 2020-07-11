@@ -1,10 +1,10 @@
 // router.patch
 const router = require('express').Router();
 const fs = require('fs')
-const File = require('../models/file.model');
+const File = require('../../models/file.model');
 const multer = require('multer')
-const multerModule = require('../utils/multerStorage.js');
-const fileService = require('../services/file');
+const multerModule = require('../../utils/multerStorage.js');
+const fileService = require('../../services/file');
 
 
 const getAllFiles = (req, res) => {
