@@ -29,7 +29,7 @@ const upload = multer({
     // cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", file), false);
     checkFileType(file, cb)
   }
-}).single('testfile')
+}).single('file')
 
 
 

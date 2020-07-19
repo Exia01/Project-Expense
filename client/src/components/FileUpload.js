@@ -4,33 +4,38 @@ import axios from 'axios';
 const FileUpload = () => {
     //Setup State
     const [file, setFile] = useState('');
-    const [fileName, setFileName] = useState('Choose File');
-    const [uploadedFile, setUploadedFile] = useState('');
+    const [filename, setFilename] = useState('Choose File');
 
     const onChange = (evt) => {
         setFile(evt.target.files[0]);
-        setFileName(evt.target.files[0].name);
+        setFilename(evt.target.files[0].name);
     }
 
     const onSubmit = async (evt) => {
         evt.preventDefault();
         //-- Create a new form OBJ
         const formData = new FormData();
+        console.log(formData);
         //-- Add file to FORM OBJ
         formData.append('file', file);
+        console.log(formData);
 
         try {
-            const res = await axios.post('/upload/route', formData, {
+            const res = await axios.post('/upload', formData, {
                 headers : {
                     'Content-Type':'multipart/form-data'
                 }
             });
 
-            const { fileName, filePath } = res.data;
-            console.log("File Uploaded!!");
-            setUploadedFile({ fileName, filePath });
-        } catch(err) {
+            console.log(res.data);
+            // const { fileName, filePath } = res.data;
+            console.log("File Uploading ...");
 
+            //-- Reset State
+            setFile('');
+            setFilename('Choose File');
+        } catch(err) {
+            console.log(err);
         }
     }
 
@@ -52,6 +57,7 @@ const FileUpload = () => {
                                 className="file-path validate" 
                                 type="text"
                                 name='file-path'
+                                value={filename}
                                 onChange={onChange} />
                         </div>
                     </div>
