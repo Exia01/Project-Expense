@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import './App.css';
 import Generate from './Generate/Generate';
-import Login from './components/Auth/Login';
+import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
 import Users from './components/Auth/Users';
 // import allUsers from './components/auth/allUsers';

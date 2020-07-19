@@ -61,6 +61,8 @@ app.use('/', reportRoutes);
 // app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/v1/files', routes.file)
 
 
