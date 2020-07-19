@@ -3,55 +3,29 @@ import { Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import { Form, Input, Button } from 'antd';
-
-//Ant Design Css
+//Ant Design Css and component styles
 import 'antd/dist/antd.css';
 import useStyles from '../../../styles/Auth/RegisterStyles';
-const Register = (props) => {
-  //-- Setup State
-  const [toDash, setToDash] = useState(false);
-  const [formData, setFormData] = useState({
-    first: '',
-    last: '',
-    username: '',
-    email: '',
-    password: '',
-    confirm: '',
-  });
+import { formLayout, formTailLayout } from '../../../utils/form/layout';
 
+const Register = (props) => {
+  const [toDash, setToDash] = useState(false);
+
+  const [formInstance] = Form.useForm();
+
+  // jss Styling
   const classes = useStyles();
 
-  const layout = {
-    labelCol: {
-      span: 24,
-    },
-    wrapperCol: {
-      span: 24,
-    },
-  };
-  const tailLayout = {
-    wrapperCol: {
-      // offset: 8,
-      span: 24,
-    },
-  };
-
-  const { first, last, username, email, password, confirm } = formData;
-
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async ({ values, errorFields, outOfDate }) => {
+    const { first, last, username, email, password, confirm } = values;
+    console.log('Received values of form:', values);
     if (password !== confirm) {
       console.error('Passwords do not Match');
     }
 
     //-- TESTING --//
     console.log('Submitting');
-    console.log(formData);
+    console.log(values);
 
     //-- create temp user
     const user = {
@@ -80,41 +54,47 @@ const Register = (props) => {
       console.log(res.data);
 
       //-- Clear inputs
-      setFormData({
-        first: '',
-        last: '',
-        username: '',
-        email: '',
-        password: '',
-        confirm: '',
-      });
+      formInstance.resetFields();
       //-- Update toDashboard State
       setToDash(true);
     } catch (err) {
       console.error(err.response.data);
-      // res.status(500).json(err);
     }
   };
 
+  const handleChange = (changedValues, allValues) => {
+    console.log(changedValues, ' Changed Values');
+    const [entry] = Object.entries(changedValues);
+    console.log(entry);
+    // setFormData({ ...formData, [entry[0]]: entry[1] });
+    // setFormData(allValues);
+  };
   if (toDash === true) {
     //-- Redirect to Landing
     return <Redirect to='/dashboard' />;
   }
+
+  const resetForm = () => {
+    formInstance.resetFields();
+  };
 
   return (
     <Fragment>
       <section className={classes.root}>
         <h1 className={classes.formTitle}>Welcome, Register!</h1>
         <Form
-          {...layout}
-          name='basic'
-          initialValues={{
-            remember: true,
-          }}
+          {...formLayout}
+          form={formInstance}
+          // labelAlign="left"
+          name='register_form'
+          className=''
+          onValuesChange={handleChange}
+          onFinish={onSubmit}
+          validateTrigger='onSubmit'
         >
           <Form.Item
             label='First Name'
-            name='firstName'
+            name='first'
             rules={[
               {
                 required: true,
@@ -122,12 +102,12 @@ const Register = (props) => {
               },
             ]}
           >
-            <Input name='first' onChange={(e) => onChange(e)} value={first} />
+            <Input />
           </Form.Item>
 
           <Form.Item
             label='Last Name'
-            name='lastName'
+            name='last'
             rules={[
               {
                 required: true,
@@ -135,7 +115,7 @@ const Register = (props) => {
               },
             ]}
           >
-            <Input name='last' value={last} d onChange={(e) => onChange(e)} />
+            <Input />
           </Form.Item>
 
           <Form.Item
@@ -148,11 +128,7 @@ const Register = (props) => {
               },
             ]}
           >
-            <Input
-              name='username'
-              value={username}
-              onChange={(e) => onChange(e)}
-            />
+            <Input name='username' />
           </Form.Item>
           <Form.Item
             label='Email'
@@ -164,7 +140,7 @@ const Register = (props) => {
               },
             ]}
           >
-            <Input name='email' value={email} onChange={(e) => onChange(e)} />
+            <Input />
           </Form.Item>
 
           <Form.Item
@@ -177,42 +153,36 @@ const Register = (props) => {
               },
             ]}
           >
-            <Input.Password
-              name='password'
-              value={password}
-              onChange={(e) => onChange(e)}
-            />
+            <Input.Password />
           </Form.Item>
 
           <Form.Item
-            style={{ wordWrap: 'wrap' }}
             label='Confirm Password'
-            name='Confirm Password'
+            name='confirm'
             rules={[
               {
                 required: true,
-                message: 'Please input your config password!',
+                message: 'Please input your confirm password!',
               },
             ]}
           >
-            <Input.Password
-               name='confirm'
-               value={confirm}
-               onChange={(e) => onChange(e)}
-            />
+            <Input.Password />
           </Form.Item>
 
-          <Form.Item {...tailLayout}>
-            <Button type='primary' htmlType='submit'>
+          <Form.Item {...formTailLayout}>
+            <Button
+              type='primary'
+              htmlType='submit'
+              className={classes.submitBtn}
+            >
               Submit
+            </Button>
+            <Button htmlType='button' onClick={resetForm}>
+              Reset
             </Button>
           </Form.Item>
         </Form>
       </section>
-
-      <form className='register' onSubmit={(e) => onSubmit(e)}>
-    
-      </form>
     </Fragment>
   );
 };
