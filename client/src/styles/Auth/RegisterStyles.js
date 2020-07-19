@@ -9,6 +9,9 @@ const useStyles = createUseStyles({
     },
     formTitle: {
         flex: '1 100%'
+    },
+    submitBtn:{
+        marginRight:'1rem'
     }
 });
 
