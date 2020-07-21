@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     root: {
-        height: (props) => (props.form == 'login' ? '75vh' : '70vh'),
+        height: (props) => (props.form === 'login' ? '75vh' : '70vh'),
 
         // display: 'flex',
         // maxWidth: '50vw',

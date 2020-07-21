@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { Row, Col } from 'antd';
@@ -9,9 +9,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 //Ant Design Css and component styles
 import 'antd/dist/antd.css';
 import useStyles from '../../../styles/Auth/LoginStyles';
-import { formLayout, formTailLayout } from '../../../utils/form/layout';
-
-
+import { formLayout } from '../../../utils/form/layout';
 
 const Login = (props) => {
   //-- Setup State
@@ -26,7 +24,7 @@ const Login = (props) => {
     // setFormData({ ...formData, [entry[0]]: entry[1] });
   };
 
-  const onSubmit = async ({ values, errorFields, outOfDate }) => {
+  const onSubmit = async (values) => {
     const { email, password } = values;
 
     //-- TESTING --//
@@ -123,7 +121,10 @@ const Login = (props) => {
                 >
                   Log in
                 </Button>
-                Or <a href=''>register now!</a>
+                Or
+                <Link to='/register' activeStyle={{ color: 'red' }}>
+                  register now!
+                </Link>
               </Form.Item>
             </Form>
           </Col>
