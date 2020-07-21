@@ -2,30 +2,40 @@ import React, { Fragment, useState } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-import { Form, Input, Button } from 'antd';
 //Ant Design Css and component styles
 import 'antd/dist/antd.css';
+import { Row, Col } from 'antd';
 import useStyles from '../../../styles/Auth/RegisterStyles';
-import { formLayout, formTailLayout } from '../../../utils/form/layout';
 
-const Register = (props) => {
+const Register = () => {
+  //-- Setup State
   const [toDash, setToDash] = useState(false);
-
-  const [formInstance] = Form.useForm();
-
-  // jss Styling
+  const [formData, setFormData] = useState({
+    first: '',
+    last: '',
+    username: '',
+    email: '',
+    password: '',
+    confirm: '',
+  });
   const classes = useStyles();
 
-  const onSubmit = async ({ values, errorFields, outOfDate }) => {
-    const { first, last, username, email, password, confirm } = values;
-    console.log('Received values of form:', values);
+  const { first, last, username, email, password, confirm } = formData;
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
     if (password !== confirm) {
       console.error('Passwords do not Match');
     }
 
     //-- TESTING --//
     console.log('Submitting');
-    console.log(values);
+    console.log(formData);
 
     //-- create temp user
     const user = {
@@ -54,134 +64,94 @@ const Register = (props) => {
       console.log(res.data);
 
       //-- Clear inputs
-      formInstance.resetFields();
+      setFormData({
+        first: '',
+        last: '',
+        username: '',
+        email: '',
+        password: '',
+        confirm: '',
+      });
       //-- Update toDashboard State
       setToDash(true);
     } catch (err) {
       console.error(err.response.data);
+      // res.status(500).json(err);
     }
   };
 
-  const handleChange = (changedValues, allValues) => {
-    console.log(changedValues, ' Changed Values');
-    const [entry] = Object.entries(changedValues);
-    console.log(entry);
-    // setFormData({ ...formData, [entry[0]]: entry[1] });
-    // setFormData(allValues);
-  };
   if (toDash === true) {
     //-- Redirect to Landing
     return <Redirect to='/dashboard' />;
   }
 
-  const resetForm = () => {
-    formInstance.resetFields();
-  };
-
   return (
     <Fragment>
       <section className={classes.root}>
-        <h1 className={classes.formTitle}>Welcome, Register!</h1>
-        <Form
-          {...formLayout}
-          form={formInstance}
-          // labelAlign="left"
-          name='register_form'
-          className=''
-          onValuesChange={handleChange}
-          onFinish={onSubmit}
-          validateTrigger='onSubmit'
-        >
-          <Form.Item
-            label='First Name'
-            name='first'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your first name!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label='Last Name'
-            name='last'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your last name!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label='Username'
-            name='username'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your username!',
-              },
-            ]}
-          >
-            <Input name='username' />
-          </Form.Item>
-          <Form.Item
-            label='Email'
-            name='email'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your username!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label='Password'
-            name='password'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            label='Confirm Password'
-            name='confirm'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your confirm password!',
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item {...formTailLayout}>
-            <Button
-              type='primary'
-              htmlType='submit'
-              className={classes.submitBtn}
-            >
-              Submit
-            </Button>
-            <Button htmlType='button' onClick={resetForm}>
-              Reset
-            </Button>
-          </Form.Item>
-        </Form>
+        <Row justify='center' align='middle'>
+          <Col xs={12} sm={10} md={8} lg={6}>
+            <h1 className='welcome'>Welcome, Register!</h1>
+            <form className='register' onSubmit={(e) => onSubmit(e)}>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='First Name'
+                  name='first'
+                  value={first}
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Last Name'
+                  name='last'
+                  value={last}
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Username'
+                  name='username'
+                  value={username}
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Email'
+                  name='email'
+                  value={email}
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='password'
+                  placeholder='Password'
+                  name='password'
+                  value={password}
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='password'
+                  placeholder='Confirm Password'
+                  name='confirm'
+                  value={confirm}
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <button type='submit' className='btn'>
+                Submit
+              </button>
+            </form>
+          </Col>
+        </Row>
       </section>
     </Fragment>
   );
