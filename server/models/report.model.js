@@ -11,6 +11,6 @@ const reportSchema = new Schema({
   timestamps: true,
 });
 
-const Exercise = mongoose.model('Report', exerciseSchema);
+const Report = mongoose.model("Report", reportSchema);
 
-module.exports = Exercise;
+module.exports = Report;

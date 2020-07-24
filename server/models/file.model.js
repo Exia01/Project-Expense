@@ -15,9 +15,9 @@ const fileSchema = new Schema({
     timestamps: true,
 });
 
-const Exercise = mongoose.model('File', fileSchema);
+const FileUpload = mongoose.model('Upload', fileSchema);
 
-module.exports = Exercise;
+module.exports = FileUpload;
 
 
 

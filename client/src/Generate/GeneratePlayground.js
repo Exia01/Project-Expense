@@ -11,7 +11,7 @@ class GeneratePlayground extends Component {
 
     componentDidMount() {
         console.log("Mounting Component");
-        axios.get('/read')
+        axios.get('/read/convert')
             .then(dataFile => {
                 console.log("Reading Test File");
                 console.log(dataFile);

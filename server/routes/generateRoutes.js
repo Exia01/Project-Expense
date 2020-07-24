@@ -53,12 +53,14 @@ router.get('/', (req, res) => {
 
 
 router.get('/convert', (req, res) => {
-
+    console.log("Converting CSV File");
     // Need to Fix the PATH to File
     // const filePath = path.parse(__dirname + "/example.csv");
     // console.log(filePath);
     console.log(path.join(__dirname, '../../client/public/uploads/example.csv'))
     const csvFilePath = path.join(__dirname, '../../client/public/uploads/example.csv')
+
+    
     csvtojson()
         .fromFile(csvFilePath)
         .then((jsonObj) => {
@@ -90,9 +92,8 @@ router.get('/convert', (req, res) => {
             // console.log("**********************");
             // *** TESTING *** 
 
-            // Send a RESPONSE
-            // res.send("Convert or perish");
-            res.send(dataArr)
+            // Send a RESPONSE 
+            res.status(200).json({ gen: dataArr });
         });
 });
 
