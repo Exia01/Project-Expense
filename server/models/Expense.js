@@ -17,7 +17,7 @@ const expenseSchema = new Schema(
     type_of_expense: [ExpenseType],
     description: {
         type: String,
-        required: true
+        // required: true
     },
     submitted_by: {
       type: mongoose.Schema.Types.ObjectId,
