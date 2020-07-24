@@ -10,6 +10,7 @@ import FileUpload from './components/FileUpload';
 import Dashboard from './components/Dashboard/Dashboard';
 import GeneratePlayground from './Generate/GeneratePlayground';
 import Report from './components/Report/Report';
+import Expense from './components/Report/Expense';
 
 function App() {
   // BrowserRouter enables links
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/users" component={Users} />
             <Route exact path="/report" component={Report} />
+            <Route exact path="/expense" component={Expense} />
             <Route exact path="/read" component={Generate} />
             <Route exact path="/read/test" component={GeneratePlayground} />
           </Switch>
