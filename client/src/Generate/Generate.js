@@ -10,6 +10,7 @@ class Generate extends Component {
   componentDidMount() {
     axios
       .get(`/read/convert`)
+      // .get(`/read`)
       .then((res) => {
         console.log(res);
         const data = res.data;

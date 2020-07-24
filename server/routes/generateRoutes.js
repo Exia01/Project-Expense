@@ -43,11 +43,12 @@ router.get('/', (req, res) => {
         }
 
 
+        // console.log(output);
+        res.status(200).json({ gen: output });
     });
 
 
-    res.render('generate/index');
-
+    // res.render('generate/index');
 });
 
 

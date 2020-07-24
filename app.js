@@ -61,7 +61,7 @@ app.use('/', reportRoutes);
 // app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
-app.use('/api/v1/files', routes.file)
+app.use('/api/v1/files', routes.file);
 
 
 app.listen(PORT, () => {
