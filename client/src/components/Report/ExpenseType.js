@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 
-const Expense = () => {
+const ExpenseType = () => {
   const [expenseType, setExpenseType] = useState({});
 
   const [formData, setFormData] = useState({
@@ -95,4 +95,4 @@ const Expense = () => {
   );
 };
 
-export default Expense;
+export default ExpenseType;
