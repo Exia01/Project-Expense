@@ -13,6 +13,7 @@ const routes				= require('./server/routes/api/');
 const authRoutes			= require('./server/routes/api/auth');
 const userRoutes			= require('./server/routes/api/users');
 const reportRoutes 			= require('./server/routes/reportRoutes');
+const expenseRoutes 		= require('./server/routes/expenseRoutes');
 const generateRoutes		= require('./server/routes/generateRoutes')
 const accountRoutes 		= require('./server/routes/accountRoutes');
 
@@ -61,6 +62,8 @@ app.use('/', reportRoutes);
 // app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
+app.use('/expense', expenseRoutes);
+app.use('/api/users', authRoutes);
 app.use('/api/v1/files', routes.file);
 
 

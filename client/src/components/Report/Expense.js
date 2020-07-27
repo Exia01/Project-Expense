@@ -31,6 +31,12 @@ const Expense = () => {
     console.log("Submitting");
     console.log(formData);
 
+    axios.post('/expense', formData)
+      .then(result => console.log(result.data))
+      .catch(err => {
+        console.log(err);
+      });
+
     //-- create temp expense
     // const user = {
     //     email,
