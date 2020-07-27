@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import React, { Fragment, useState, useContext } from 'react';
+import {Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { UserDispatchContext } from '../../../contexts/user.context';
 
 //Ant Design Css and component styles
 import 'antd/dist/antd.css';
@@ -18,7 +19,9 @@ const Register = () => {
     password: '',
     confirm: '',
   });
+
   const classes = useStyles();
+  const dispatch = useContext(UserDispatchContext);
 
   const { first, last, username, email, password, confirm } = formData;
 
@@ -72,10 +75,18 @@ const Register = () => {
         password: '',
         confirm: '',
       });
-      //-- Update toDashboard State
-      setToDash(true);
+
+      const { token, user_obj } = res.data;
+      console.log(user_obj);
+
+      dispatch({
+        type: 'AUTH_USER',
+        user: { token, isAuthenticated:true, user_obj },
+      });
+      // setToDash(true);
     } catch (err) {
-      console.error(err.response.data);
+      console.log(err);
+      // console.error(err.response.data);
       // res.status(500).json(err);
     }
   };
