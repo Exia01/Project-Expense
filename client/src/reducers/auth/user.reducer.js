@@ -3,8 +3,8 @@ export const userReducer = (state, action) => {
   switch (action.type) {
     //could import the action types instead of typing the cases
     case 'AUTH_USER':
-      const { token, isAuthenticated, user_obj } = action.user;
-      return { ...state, token, isAuthenticated, user: user_obj };
+      const { token, isAuthenticated, userInfo, expiresAt } = action.user;
+      return { ...state, token, isAuthenticated, user: userInfo, expiresAt };
     case 'LOGOUT':
       return { isAuthenticated: false, user: null, token: null };
     case 'REFRESH_TOKEN':

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react';
-import {Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { UserDispatchContext } from '../../../contexts/user.context';
 
@@ -76,14 +76,14 @@ const Register = () => {
         confirm: '',
       });
 
-      const { token, user_obj } = res.data;
-      console.log(user_obj);
+      const { token, userInfo, expiresAt } = res.data;
+      console.log(userInfo);
 
       dispatch({
         type: 'AUTH_USER',
-        user: { token, isAuthenticated:true, user_obj },
+        user: { token, isAuthenticated: true, userInfo, expiresAt },
       });
-      // setToDash(true);
+      setToDash(true);
     } catch (err) {
       console.log(err);
       // console.error(err.response.data);

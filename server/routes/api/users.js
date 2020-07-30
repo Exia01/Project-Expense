@@ -62,16 +62,8 @@ router.post('/create', async (req, res) => {
 
 
     if (savedUser) {
-      const payload = {
-        user: {
-          id: user._id,
-          email
-        },
-      };
-
       const token = createToken(savedUser);
-      console.log('hit here');
-      console.log(token);
+      // console.log(token);
       const decodedToken = jwtDecode(token);
       const expiresAt = decodedToken.exp;
 

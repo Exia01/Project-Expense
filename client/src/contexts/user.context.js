@@ -10,6 +10,7 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   token: null,
+  expiresAt: null,
 };
 
 const UserContextProvider = (props) => {
