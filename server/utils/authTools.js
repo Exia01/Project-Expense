@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const hashPassword = password => {
   return new Promise((resolve, reject) => {
@@ -17,7 +18,21 @@ const hashPassword = password => {
   });
 };
 
+const createToken = user => {
+  const payload = {
+    user: {
+      id: user._id,
+      email: user.email
+    },
+  };
+  return jwt.sign(payload,
+    process.env.JWT_SECRET,
+    { algorithm: 'HS256', expiresIn: '1h' }
+  );
+};
+
+
 module.exports = {
   hashPassword,
-
+  createToken
 };
