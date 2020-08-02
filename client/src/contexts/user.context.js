@@ -8,11 +8,12 @@ export const UserDispatchContext = createContext();
 
 const initialState = {
   isAuthenticated: false,
-  user: null,
+  info: null,
   token: null,
   expiresAt: null,
 };
 
+//At some point maybe look into https cookies for token?
 const UserContextProvider = (props) => {
   //abstracted away for reusability could place back on file if needed
   const [user, dispatch] = useLocalStorageReducer(
@@ -21,8 +22,13 @@ const UserContextProvider = (props) => {
     userReducer
   );
 
+  const isAuthenticated = () => {
+    // return new Date().getTime() / 1000 < authState.expiresAt
+  
+  };
+
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={user, isAuthenticated}>
       <UserDispatchContext.Provider value={dispatch}>
         {props.children}
       </UserDispatchContext.Provider>
@@ -31,3 +37,8 @@ const UserContextProvider = (props) => {
 };
 
 export default UserContextProvider;
+
+
+//Check Authentication: https://www.codementor.io/@obabichev/react-token-auth-12os8txqo1
+
+// Info on JWT:https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#login
