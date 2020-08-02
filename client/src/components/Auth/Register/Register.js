@@ -6,11 +6,15 @@ import { UserDispatchContext } from '../../../contexts/user.context';
 //Ant Design Css and component styles
 import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
+import { Input, Button } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+
 import useStyles from '../../../styles/Auth/RegisterStyles';
 
 const Register = () => {
   //-- Setup State
   const [toDash, setToDash] = useState(false);
+
   const [formData, setFormData] = useState({
     first: '',
     last: '',
@@ -19,18 +23,20 @@ const Register = () => {
     password: '',
     confirm: '',
   });
+  const [submittingForm, setSubmittingForm] = useState(false);
 
   const classes = useStyles();
   const dispatch = useContext(UserDispatchContext);
 
   const { first, last, username, email, password, confirm } = formData;
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setSubmittingForm(true);
 
     if (password !== confirm) {
       console.error('Passwords do not Match');
@@ -83,9 +89,14 @@ const Register = () => {
         type: 'AUTH_USER',
         user: { token, isAuthenticated: true, userInfo, expiresAt },
       });
-      setToDash(true);
+
+      setSubmittingForm(false);
+      setTimeout(() => {
+        setToDash(true);
+      }, 5000);
     } catch (err) {
       console.log(err);
+      setSubmittingForm(false);
       // console.error(err.response.data);
       // res.status(500).json(err);
     }
@@ -103,63 +114,80 @@ const Register = () => {
           <Col xs={12} sm={10} md={8} lg={6}>
             <h1 className='welcome'>Welcome, Register!</h1>
             <form className='register' onSubmit={(e) => onSubmit(e)}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='First Name'
+              <div className={classes.formGroup}>
+                <label htmlFor='firstName' className={classes.formLabel}>
+                  First Name
+                </label>
+                <Input
                   name='first'
-                  value={first}
-                  onChange={(e) => onChange(e)}
+                  defaultValue={first}
+                  onChange={handleChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Last Name'
+              <div className={classes.formGroup}>
+                <label htmlFor='lastName' className={classes.formLabel}>
+                  Last Name
+                </label>
+                <Input
                   name='last'
-                  value={last}
-                  onChange={(e) => onChange(e)}
+                  defaultValue={last}
+                  onChange={handleChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Username'
+              <div className={classes.formGroup}>
+                <label htmlFor='userName' className={classes.formLabel}>
+                  Username
+                </label>
+                <Input
                   name='username'
-                  value={username}
-                  onChange={(e) => onChange(e)}
+                  defaultValue={username}
+                  onChange={handleChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Email'
+              <div className={classes.formGroup}>
+                <label htmlFor='email' className={classes.formLabel}>
+                  Email
+                </label>
+                <Input
                   name='email'
-                  value={email}
-                  onChange={(e) => onChange(e)}
+                  defaultValue={email}
+                  onChange={handleChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
-                  type='password'
-                  placeholder='Password'
+              <div className={classes.formGroup}>
+                <label htmlFor='password' className={classes.formLabel}>
+                  Password
+                </label>
+                <Input.Password
+                  placeholder=''
                   name='password'
-                  value={password}
-                  onChange={(e) => onChange(e)}
+                  onChange={handleChange}
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
                 />
               </div>
-              <div className='form-group'>
-                <input
-                  type='password'
-                  placeholder='Confirm Password'
+              <div className={classes.formGroup}>
+                <label htmlFor='confirmPassword' className={classes.formLabel}>
+                  Confirm Password
+                </label>
+                <Input.Password
+                  placeholder=''
                   name='confirm'
-                  value={confirm}
-                  onChange={(e) => onChange(e)}
+                  onChange={handleChange}
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
                 />
               </div>
-              <button type='submit' className='btn'>
+              <Button
+                type='primary'
+                htmlType='submit '
+                className={classes.submitBtn}
+                loading={submittingForm && 'true'}
+              >
                 Submit
-              </button>
+              </Button>
             </form>
           </Col>
         </Row>

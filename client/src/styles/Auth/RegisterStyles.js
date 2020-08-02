@@ -1,18 +1,22 @@
-import { createUseStyles } from 'react-jss'
+import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
-    root: {
-        display: 'flex',
-        maxWidth: '50vw',
-        margin: '5rem auto 0 auto ',
-        flexFlow: 'wrap'
-    },
-    formTitle: {
-        flex: '1 100%'
-    },
-    submitBtn:{
-        marginRight:'1rem'
-    }
+  root: {
+    // display: 'flex',
+    // maxWidth: '50vw',
+    paddingTop: '2rem',
+  },
+  formGroup: {},
+  formTitle: {
+    flex: '1 100%',
+  },
+  formLabel: {
+    display: 'inline-block',
+    marginBottom: '.5rem',
+  },
+  submitBtn: {
+    marginTop: '1rem',
+  },
 });
 
-export default useStyles
+export default useStyles;
