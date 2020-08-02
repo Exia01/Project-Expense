@@ -5,7 +5,7 @@ import { UserDispatchContext } from '../../../contexts/user.context';
 
 //Ant Design Css and component styles
 import 'antd/dist/antd.css';
-import { Row, Col } from 'antd';
+import { Row, Col, Space } from 'antd';
 import { Input, Button } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
@@ -114,80 +114,85 @@ const Register = () => {
           <Col xs={12} sm={10} md={8} lg={6}>
             <h1 className='welcome'>Welcome, Register!</h1>
             <form className='register' onSubmit={(e) => onSubmit(e)}>
-              <div className={classes.formGroup}>
-                <label htmlFor='firstName' className={classes.formLabel}>
-                  First Name
-                </label>
-                <Input
-                  name='first'
-                  defaultValue={first}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={classes.formGroup}>
-                <label htmlFor='lastName' className={classes.formLabel}>
-                  Last Name
-                </label>
-                <Input
-                  name='last'
-                  defaultValue={last}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={classes.formGroup}>
-                <label htmlFor='userName' className={classes.formLabel}>
-                  Username
-                </label>
-                <Input
-                  name='username'
-                  defaultValue={username}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={classes.formGroup}>
-                <label htmlFor='email' className={classes.formLabel}>
-                  Email
-                </label>
-                <Input
-                  name='email'
-                  defaultValue={email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={classes.formGroup}>
-                <label htmlFor='password' className={classes.formLabel}>
-                  Password
-                </label>
-                <Input.Password
-                  placeholder=''
-                  name='password'
-                  onChange={handleChange}
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                />
-              </div>
-              <div className={classes.formGroup}>
-                <label htmlFor='confirmPassword' className={classes.formLabel}>
-                  Confirm Password
-                </label>
-                <Input.Password
-                  placeholder=''
-                  name='confirm'
-                  onChange={handleChange}
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                />
-              </div>
-              <Button
-                type='primary'
-                htmlType='submit '
-                className={classes.submitBtn}
-                loading={submittingForm && 'true'}
-              >
-                Submit
-              </Button>
+              <Space direction='vertical' size='small'>
+                <div className={classes.formGroup}>
+                  <label htmlFor='firstName' className={classes.formLabel}>
+                    First Name
+                  </label>
+                  <Input
+                    name='first'
+                    defaultValue={first}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={classes.formGroup}>
+                  <label htmlFor='lastName' className={classes.formLabel}>
+                    Last Name
+                  </label>
+                  <Input
+                    name='last'
+                    defaultValue={last}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={classes.formGroup}>
+                  <label htmlFor='userName' className={classes.formLabel}>
+                    Username
+                  </label>
+                  <Input
+                    name='username'
+                    defaultValue={username}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={classes.formGroup}>
+                  <label htmlFor='email' className={classes.formLabel}>
+                    Email
+                  </label>
+                  <Input
+                    name='email'
+                    defaultValue={email}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={classes.formGroup}>
+                  <label htmlFor='password' className={classes.formLabel}>
+                    Password
+                  </label>
+                  <Input.Password
+                    placeholder=''
+                    name='password'
+                    onChange={handleChange}
+                    iconRender={(visible) =>
+                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                    }
+                  />
+                </div>
+                <div className={classes.formGroup}>
+                  <label
+                    htmlFor='confirmPassword'
+                    className={classes.formLabel}
+                  >
+                    Confirm Password
+                  </label>
+                  <Input.Password
+                    placeholder=''
+                    name='confirm'
+                    onChange={handleChange}
+                    iconRender={(visible) =>
+                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                    }
+                  />
+                </div>
+                <Button
+                  type='primary'
+                  htmlType='submit '
+                  className={classes.submitBtn}
+                  loading={submittingForm && 'true'}
+                >
+                  Submit
+                </Button>
+              </Space>
             </form>
           </Col>
         </Row>
