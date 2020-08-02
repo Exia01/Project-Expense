@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 import { Row, Col } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -16,7 +15,6 @@ const Login = (props) => {
   //-- Setup State
   const [toDash, setToDash] = useState(false);
   const classes = useStyles(props);
-
 
   const handleChange = (changedValues, allValues) => {
     console.log(changedValues, ' Changed Values');
@@ -118,12 +116,12 @@ const Login = (props) => {
                 <Button
                   type='primary'
                   htmlType='submit'
-                  className={`login-form-button ${classes.submitBtn}`}
+                  className={`login-form-button  ${classes.submitBtn}`}
                 >
                   Log in
                 </Button>
                 Or
-                <Link to='/register' activeStyle={{ color: 'red' }}>
+                <Link to='/register' style={{ marginLeft: '.5rem' }}>
                   register now!
                 </Link>
               </Form.Item>
