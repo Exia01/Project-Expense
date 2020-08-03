@@ -1,7 +1,10 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { UserDispatchContext } from '../../../contexts/user.context';
+import {
+  UserDispatchContext,
+  UserContext,
+} from '../../../contexts/user.context';
 
 //Ant Design Css and component styles
 import 'antd/dist/antd.css';
@@ -11,10 +14,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 import useStyles from '../../../styles/Auth/RegisterStyles';
 
-const Register = () => {
-  //-- Setup State
-  const [toDash, setToDash] = useState(false);
-
+function Register() {
   const [formData, setFormData] = useState({
     first: '',
     last: '',
@@ -26,8 +26,8 @@ const Register = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
 
   const classes = useStyles();
+  const { isAuthenticated } = useContext(UserContext);
   const dispatch = useContext(UserDispatchContext);
-
   const { first, last, username, email, password, confirm } = formData;
 
   const handleChange = (e) => {
@@ -89,11 +89,7 @@ const Register = () => {
         type: 'AUTH_USER',
         user: { token, isAuthenticated: true, userInfo, expiresAt },
       });
-
       setSubmittingForm(false);
-      setTimeout(() => {
-        setToDash(true);
-      }, 5000);
     } catch (err) {
       console.log(err);
       setSubmittingForm(false);
@@ -101,8 +97,7 @@ const Register = () => {
       // res.status(500).json(err);
     }
   };
-
-  if (toDash === true) {
+  if (isAuthenticated()) {
     //-- Redirect to Landing
     return <Redirect to='/dashboard' />;
   }
@@ -190,7 +185,7 @@ const Register = () => {
                   className={classes.submitBtn}
                   loading={submittingForm && 'true'}
                 >
-                  Submit
+                  {submittingForm ? 'Submitting' : 'Submit'}
                 </Button>
               </Space>
             </form>
@@ -199,6 +194,6 @@ const Register = () => {
       </section>
     </Fragment>
   );
-};
+}
 
 export default Register;

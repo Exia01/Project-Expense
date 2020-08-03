@@ -12,11 +12,14 @@ export const userReducer = (state, action) => {
         token: null,
         expiresAt: null,
       };
+
     case 'REFRESH_TOKEN':
       return { ...state, token: action.token };
+
     default:
       return state;
   }
 };
+
 
 // Annonymous Funcs:https://www.javascripttutorial.net/javascript-anonymous-functions/
