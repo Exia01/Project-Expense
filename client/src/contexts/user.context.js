@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useMemo } from 'react';
 import { userReducer } from '../reducers/auth/user.reducer';
 import useLocalStorageReducer from '../hooks/useLocalStorageReducer';
 
@@ -14,7 +14,7 @@ const initialState = {
 };
 
 //At some point maybe look into https cookies for token?
-const UserContextProvider = (props) => {
+function UserContextProvider(props) {
   //abstracted away for reusability could place back on file if needed
   const [user, dispatch] = useLocalStorageReducer(
     'user',
@@ -22,13 +22,23 @@ const UserContextProvider = (props) => {
     userReducer
   );
 
-  const isAuthenticated = () => {
-    // return new Date().getTime() / 1000 < authState.expiresAt
-  
+  // Using React Memo:  https://stackoverflow.com/questions/57840535/passing-multiple-value-and-setter-pairs-to-context-provider-in-react 
+
+  function isAuthenticated() {
+    if (!user.token || !user.expiresAt) {
+      return false;
+    }
+    return (
+      new Date().getTime() / 1000 < user.expiresAt
+    );
   };
 
+  const providerValue = React.useMemo(() => ({
+    user,
+    isAuthenticated
+  }), [user, isAuthenticated]);
   return (
-    <UserContext.Provider value={user, isAuthenticated}>
+    <UserContext.Provider value={providerValue}>
       <UserDispatchContext.Provider value={dispatch}>
         {props.children}
       </UserDispatchContext.Provider>
@@ -38,6 +48,8 @@ const UserContextProvider = (props) => {
 
 export default UserContextProvider;
 
+
+// UserReducer: https://alligator.io/react/usereducer/
 
 //Check Authentication: https://www.codementor.io/@obabichev/react-token-auth-12os8txqo1
 

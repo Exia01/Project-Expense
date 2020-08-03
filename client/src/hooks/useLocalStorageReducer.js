@@ -23,7 +23,7 @@ function useLocalStorageReducer(strKey, defaultValue, reducer) {
 
   //useEffect to update to localStorage when state changes with the reducer
   useEffect(() => {
-    console.log('State:', state);
+    // console.log('State:', state);
     window.localStorage.setItem(strKey, JSON.stringify(state));
     //when state changes we want to sync to local storage
   }, [strKey, state]);
