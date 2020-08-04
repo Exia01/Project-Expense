@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Generate from './Generate/Generate';
 import Login from './components/Auth/Login/Login';
@@ -10,10 +10,34 @@ import FileUpload from './components/FileUpload';
 import Dashboard from './components/Dashboard/Dashboard';
 import Navbar from './containers/Navbar.js/Navbar';
 
-import UserContextProvider from './contexts/user.context';
+import { UserContext } from './contexts/user.context';
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ isAuthenticated, redirectPath, children, ...rest }) {
+  console.log(isAuthenticated, redirectPath, children);
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isAuthenticated() ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: redirectPath,
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
 function App() {
   // BrowserRouter enables links
+  const { isAuthenticated } = useContext(UserContext);
   return (
     <BrowserRouter>
       <div className='App'>
@@ -22,16 +46,19 @@ function App() {
         <Route exact path='/' component={FileUpload} />
         <main className='container'>
           <Switch>
-            <Route exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              path='/dashboard'
+              redirectPath='/login'
+            >
+              <Dashboard />
+            </PrivateRoute>
+            <Route exact path='/dashboard' render={Dashboard} />
             <Route exact path='/login' component={Login} />
             <Route
               exact
               path='/register'
-              render={(props) => (
-                <UserContextProvider>
-                  <Register {...props} />
-                </UserContextProvider>
-              )}
+              render={(props) => <Register {...props} />}
             />
             <Route exact path='/users' component={Users} />
             {/* <Route exact path='/all' component={allUsers}/> */}
@@ -43,3 +70,7 @@ function App() {
 }
 
 export default App;
+
+// Guarded Routes: https://reactrouter.com/web/example/auth-workflow
+// https://stackoverflow.com/questions/43164554/how-to-implement-authenticated-routes-in-react-router-4
+// Another Example:https://ui.dev/react-router-v4-protected-routes-authentication/
