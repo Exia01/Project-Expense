@@ -1,22 +1,31 @@
 import axios from 'axios';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/user.context';
 
+// export const setAuthToken = (token) => {
+//   if (token) {
+//     //applying token
+//     authAxios.defaults.headers.common['x-auth-token'] = token;
+//   } else {
+//     //deleting the token from header
+//     delete authAxios.defaults.headers.common['x-auth-token'];
+//   }
+// };
 
-export const setAuthToken = token => {
-  if (token) {
-    //applying token
-    instance.defaults.headers.common['Authorization'] = token;
-  } else {
-    //deleting the token from header
-    delete instance.defaults.headers.common['Authorization'];
-  }
-}
+// const token = 'safkldsjfa;lk';
+// axios.interceptors.request.use(
+//   (config) => {
+//     config.headers.Authorization = `Bearer ${token}`;
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
-
-const instance = axios.create({
-  baseURL: '/api/users/create',
-  headers: {
-    // 'Content-Type': 'application/json',
-  }
+const authAxios = axios.create({
+  baseURL: '/api/users',
+  // Could also setup like this:baseURL: process.env.USER_AUTH_API_URL
 });
 
-export default instance;
+export default authAxios;

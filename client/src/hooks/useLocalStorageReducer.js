@@ -16,7 +16,7 @@ function useLocalStorageReducer(strKey, defaultValue, reducer) {
         window.localStorage.getItem(strKey) || String(defaultValue) //either grab by key or set by initial value
       );
     } catch (error) {
-      value = defaultValue || [];
+      value = defaultValue;
     }
     return value;
   });
