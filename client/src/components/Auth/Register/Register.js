@@ -13,7 +13,9 @@ import { Input, Button } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 import useStyles from '../../../styles/Auth/RegisterStyles';
-import authAxiosInstance, { setAuthToken } from '../../../utils/axios/user.instance';
+import authAxiosInstance, {
+  setAuthToken,
+} from '../../../utils/axios/user.instance';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -27,14 +29,14 @@ function Register() {
   const [submittingForm, setSubmittingForm] = useState(false);
 
   const classes = useStyles();
-  const { isAuthenticated, user } = useContext(UserContext);
+  const { isAuthenticated, user: authUserObj } = useContext(UserContext); //namedImport
   const dispatch = useContext(UserDispatchContext);
   const { first, last, username, email, password, confirm } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  console.log(authUserObj);
   const onSubmit = async (e) => {
     e.preventDefault();
     setSubmittingForm(true);
@@ -62,20 +64,18 @@ function Register() {
       const config = {
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${user.token}`,
-          'x-auth-token': user.token,
-        }
-
-      }
+          Accept: 'application/json',
+          Authorization: `Bearer ${authUserObj.token}`,
+          'x-auth-token': authUserObj.token,
+        },
+      };
       //-- Stringify User Input
       const body = JSON.stringify(user);
       console.log('********');
       console.log(body);
 
-
       // const res = await axios.post('/api/users/create', body, config);
-      const res = await authAxiosInstance.post("create", body, config)
+      const res = await authAxiosInstance.post('create', body, config);
       //-- TESTING --//
       console.log(res.data);
 
