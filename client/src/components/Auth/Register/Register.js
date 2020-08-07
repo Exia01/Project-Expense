@@ -111,12 +111,12 @@ function Register() {
 
   return (
     <Fragment>
-      <section className={classes.root}>
+      <main className={classes.root}>
         <Row justify='center' align='middle'>
           <Col xs={12} sm={10} md={8} lg={6}>
             <h1 className='welcome'>Welcome, Register!</h1>
             <form className='register' onSubmit={(e) => onSubmit(e)}>
-              <Space direction='vertical' size='small'>
+              <Space direction='vertical' size='middle' className="w-100">
                 <div className={classes.formGroup}>
                   <label htmlFor='firstName' className={classes.formLabel}>
                     First Name
@@ -198,7 +198,7 @@ function Register() {
             </form>
           </Col>
         </Row>
-      </section>
+      </main>
     </Fragment>
   );
 }
