@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Navbar from './containers/Navbar.js/Navbar';
 
 import { UserContext } from './contexts/user.context';
+import { Layout } from 'antd';
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
@@ -40,31 +41,32 @@ function App() {
   const { isAuthenticated } = useContext(UserContext);
   return (
     <BrowserRouter>
-      <div className='App'>
+      <Layout className='App'>
         {/* <Navbar/> */}
 
         <Route exact path='/' component={FileUpload} />
-        <main className='container'>
-          <Switch>
-            <PrivateRoute
-              isAuthenticated={isAuthenticated}
-              path='/dashboard'
-              redirectPath='/login'
-            >
-              <Dashboard />
-            </PrivateRoute>
-            <Route exact path='/dashboard' render={Dashboard} />
-            <Route exact path='/login' component={Login} />
-            <Route
-              exact
-              path='/register'
-              render={(props) => <Register {...props} />}
-            />
-            <Route exact path='/users' component={Users} />
-            {/* <Route exact path='/all' component={allUsers}/> */}
-          </Switch>
-        </main>
-      </div>
+        {/* <main className='container'> */}
+        <Navbar />
+        <Switch>
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            path='/dashboard'
+            redirectPath='/login'
+          >
+            <Dashboard />
+          </PrivateRoute>
+          <Route exact path='/dashboard' render={Dashboard} />
+          <Route exact path='/login' component={Login} />
+          <Route
+            exact
+            path='/register'
+            render={(props) => <Register {...props} />}
+          />
+          <Route exact path='/users' component={Users} />
+          {/* <Route exact path='/all' component={allUsers}/> */}
+        </Switch>
+        {/* </main> */}
+      </Layout>
     </BrowserRouter>
   );
 }
