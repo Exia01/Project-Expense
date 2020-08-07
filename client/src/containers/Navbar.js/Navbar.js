@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
+import { Layout, Menu } from 'antd';
 
+// CSS Styles
+import '../../styles/NavbarStyles.css';
+import { Link } from 'react-router-dom';
+const { Header, Content, Footer } = Layout;
 export default class Navbar extends Component {
   render() {
     return (
-      <header className='Navbar'>
-        <div className='Logo'>
-          <h1>Logo</h1>
+      <Header>
+        <div className='header-container'>
+          <div className='logo'></div>
+          <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['2']}>
+            <Menu.Item key='1'>
+              <Link to='/register'>Register</Link>
+            </Menu.Item>
+            <Menu.Item key='2'>
+           
+              <Link to='/Login'>Login</Link>
+            </Menu.Item>
+            <Menu.Item key='3'>nav 3</Menu.Item>
+          </Menu>
         </div>
-        <div className='Content'>
-          <h1>Item1</h1>
-          <h1>Item2</h1>
-        </div>
-      </header>
+      </Header>
     );
   }
 }
