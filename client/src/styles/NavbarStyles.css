@@ -1,18 +1,50 @@
 /* Could turn to JSS if wanting to turn into dynamic themes=> light || dark theme */
-
-.header-container {
-  max-width: 1140px;
-  margin: 0 auto;
+header {
+  background-color: #ffffff;
 }
-
-.header-container .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px auto 16px auto;
-    float: left;
+.navbar {
+  width: 100%;
+  max-width: 100em;
+  display: flex;
+  padding: 1rem;
 }
-
-.header-container ul{
-    float: right;
+.navbar .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(13, 13, 13, 0.2);
+  margin-right: 1rem;
+}
+.navbar .navbar-menu {
+  display: flex;
+  margin-left: auto;
+}
+.navbar .navbar-menu li {
+  display: inline-block;
+  list-style: none;
+  min-width: 40px;
+  margin: 0 1rem;
+}
+.navbar .navbar-menu a {
+  text-transform: uppercase;
+  color: #444;
+  font-weight: bold;
+}
+.navbar .navbar-menu a.active {
+  color: #000000;
+}
+.navbar .navbar-menu a {
+  transition: color 0.3s ease;
+}
+.navbar .navbar-menu a::after {
+  content: '';
+  display: block;
+  margin: auto;
+  height: 3px;
+  width: 0;
+  background: 0 0;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+.navbar .navbar-menu a:hover::after {
+  width: 100%;
+  background: #444;
 }
