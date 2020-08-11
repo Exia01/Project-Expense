@@ -12,6 +12,7 @@ import Navbar from './containers/Navbar.js/Navbar';
 
 import { UserContext } from './contexts/user.context';
 import { Layout } from 'antd';
+import Footer from './components/Footer/Footer';
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
@@ -44,10 +45,10 @@ function App() {
       <Layout className='App'>
         {/* <Navbar/> */}
 
-        <Route exact path='/' component={FileUpload} />
         {/* <main className='container'> */}
         <Navbar />
         <Switch>
+          <Route exact path='/' component={FileUpload} />
           <PrivateRoute
             isAuthenticated={isAuthenticated}
             path='/dashboard'
@@ -65,6 +66,7 @@ function App() {
           <Route exact path='/users' component={Users} />
           {/* <Route exact path='/all' component={allUsers}/> */}
         </Switch>
+        <Footer />
         {/* </main> */}
       </Layout>
     </BrowserRouter>
