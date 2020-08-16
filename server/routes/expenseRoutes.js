@@ -1,20 +1,53 @@
 const express = require('express');
 const router = express.Router();
-const ExpenseType = require('../models/ExpenseType');
+const Expense = require('../models/Expense');
 
 //-- Route -> "/expense/"
 router.get('/', (req, res) => {
-    console.log("Hit Expense Route");
+    console.log("Get All Expense Route");
     console.log("<><><><><>")
-    res.json({ "success": true });
+    Expense
+        .find({})
+        .then(results => {
+            console.log(results);
+            res.json({ "success": true, all_exp: results });
+        })
+        .catch(err => {
+            console.log(err)
+            res.json(err);
+        })
 });
 
 //-- Route -> "/expense/"
 router.post('/', (req, res) => {
-    console.log("Hit Expense Route");
+    console.log("Posting to Expense Route");
     console.log("<><><><><>")
+    console.log(`User : ${req.user}`);
     console.log(req.body);
-    res.json({ "success": true });
+
+    const { title, amount, amount_float, expense_type, description, date_of_expense } = req.body;
+
+    let expenseOjb = {
+        title: title,
+        amount: amount,
+        amount_float: amount_float,
+        expense_type: expense_type,
+        description: description,
+        date_of_expense: date_of_expense
+    }
+
+    Expense.create(expenseOjb, (err, data) => {
+        if(err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+
+        console.log("... Expense Instance Created ...")
+        console.log(data);
+
+        res.status(204).json({ "success": true, data: data });
+    });
+
 });
 
 //-- Route -> "/expense/type"

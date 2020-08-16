@@ -11,27 +11,40 @@ const expenseSchema = new Schema(
     },
     /* Mongoose saves Floating Point Numbers as Strings (...parseFloat() ) */
     amount: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
-    type_of_expense: [ExpenseType],
+    amount_float: {
+      type: String,
+      required: true,
+    },
+    // type_of_expense: [ExpenseType],
+    expense_type: {
+      type: String,
+      enum: ["Gas", "Air Travel", "Car Rental", "Food", "Equipment", "Shipping", "Misc"]
+    },
     description: {
-        type: String,
-        // required: true
-    },
-    submitted_by: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      // required: true
     },
     date_of_expense: {
       type: Date,
     },
-  }, /* Options */ {
-        timestamps: true,
-     }
+    report_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Report"
+    },
+    // submitted_by: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "User",
+    // },
+  },
+  /* Options */ {
+    timestamps: true,
+  }
 );
 
 
-const Expense = mongoose.model("Expense", reportSchema);
+const Expense = mongoose.model("Expense", expenseSchema);
 
 module.exports = Expense;

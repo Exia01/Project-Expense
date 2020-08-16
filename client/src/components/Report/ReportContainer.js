@@ -1,41 +1,23 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 
-const Expense = () => {
+const Report = () => {
   const [report, setReport] = useState({});
-  const [expenses, setExpenses] = useState({});
 
   const [formData, setFormData] = useState({
     title: "",
-    // type_of_expense: "",
-    amount: "",
-    amount_float: "",
-    expense_type: "",
-    description: "",
-    date_of_expense: "",
+    reason_for_travel: "",
+    submitted_by: "",
+    all_expenses: [],
+    total_amount: "",
   });
-
-  useEffect( () => {
-    axios
-      .get('/expenses')
-      .then(res => {
-        console.log("I went there...")
-        // console.log(res);
-        console.log(res.data);
-        console.log(res.data.all_exp);
-      })
-      .catch(err => console.log(err));
-  })
 
   const {
     title,
-    // type_of_expense,
-    amount,
-    amount_float,
-    expense_type,
-    expense_type_select,
-    description,
-    date_of_expense,
+    reason_for_travel,
+    submitted_by,
+    all_expenses,
+    total_amount,
   } = formData;
 
   const onChange = (e) => {
@@ -48,13 +30,6 @@ const Expense = () => {
     //-- TESTING --//
     console.log("Submitting");
     console.log(formData);
-    console.log("//**** End Form Submit *****//")
-
-    axios.post('/expenses', formData)
-      .then(result => console.log(result.data))
-      .catch(err => {
-        console.log(err);
-      });
 
     //-- create temp expense
     // const user = {
@@ -81,13 +56,10 @@ const Expense = () => {
     //-- Clear inputs
     setFormData({
       title: "",
-      // type_of_expense: "",
-      amount: "",
-      amount_float: "",
-      expense_type: "",
-      expense_type_select: "",
-      description: "",
-      date_of_expense: "",
+      reason_for_travel: "",
+      submitted_by: "",
+      all_expenses: [],
+      total_amount: "",
     });
 
     //     //-- Update toDashboard State
@@ -100,90 +72,60 @@ const Expense = () => {
 
   return (
     <Fragment>
-      <h2>Add Expense</h2>
+      <h2>Create Report</h2>
       <form className="add_expense" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Expense Title"
+            placeholder="Report Title"
             name="title"
             value={title}
             onChange={(e) => onChange(e)}
           />
         </div>
-        <div className="input-field">
-          <input
-            type="text"
-            placeholder="Enter Expense Type"
-            id="expense_type"
-            name="expense_type"
-            value={expense_type}
-            onChange={(e) => onChange(e)} 
-          />
-        </div>
-
         <div className="form-group">
           <input
             type="text"
-            placeholder="Enter Description"
-            name="description"
-            value={description}
+            placeholder="Reason for Travel?"
+            name="reason_for_travel"
+            value={reason_for_travel}
             onChange={(e) => onChange(e)}
           />
         </div>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Amount of Expense"
-            name="amount"
-            value={amount}
+            placeholder="Username"
+            name="submitted_by"
+            value={submitted_by}
             onChange={(e) => onChange(e)}
           />
         </div>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Floaty of Expense"
-            name="amount_float"
-            value={amount_float}
+            placeholder="Add Expense"
+            name="all_expenses"
+            value={all_expenses}
             onChange={(e) => onChange(e)}
           />
         </div>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Date of Expense"
-            name="date_of_expense"
-            value={date_of_expense}
+            placeholder="Total Amount From Expenses?"
+            name="total_amount"
+            value={total_amount}
             onChange={(e) => onChange(e)}
           />
         </div>
 
         <button type="submit" className="btn">
-          Add Expense
+          Submit
         </button>
-
-      <hr/>
-
-        <div className="input-field">
-          <label htmlFor="expense_type_select">Select Type of Expense</label>
-          <select
-            className=""
-            id="expense_type_select"
-            name="expense_type_select"
-            value={expense_type_select}
-            onChange={(e) => onChange(e)}
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
       </form>
     </Fragment>
   );
 };
 
-export default Expense;
+export default Report;

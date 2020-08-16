@@ -13,7 +13,7 @@ const reportSchema = new Schema(
       required: true,
     },
     submitted_by: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
     date_submitted: {
@@ -24,7 +24,7 @@ const reportSchema = new Schema(
     },
     all_expenses: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Expense",
       },
     ],

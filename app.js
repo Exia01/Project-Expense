@@ -62,7 +62,7 @@ app.use('/', reportRoutes);
 // app.use('/report', reportRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/read', generateRoutes);
-app.use('/expense', expenseRoutes);
+app.use('/expenses', expenseRoutes);
 app.use('/api/users', authRoutes);
 app.use('/api/v1/files', routes.file);
 
