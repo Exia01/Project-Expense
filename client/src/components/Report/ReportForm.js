@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import FormStart from './FormStart';
 import Expense from './Expense';
 import ExpenseList from './ExpenseList';
-import Report from './Report'
+import Report from './Report';
 import Confirm from './Confirm';
 import Success from './Success';
 
@@ -97,10 +97,5 @@ export default class ReportForm extends Component {
                   />
                 );
         }
-        return (
-            <div>
-                
-            </div>
-        )
     }
 }

@@ -1,28 +1,49 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
+import ReportForm from "./ReportForm";
+import FormStart from "./FormStart";
 
 const Report = () => {
   const [report, setReport] = useState({});
 
   const [formData, setFormData] = useState({
+    step: 1,
     title: "",
     reason_for_travel: "",
     submitted_by: "",
+    date_submitted: "",
+    date_approved: "",
     all_expenses: [],
     total_amount: "",
   });
 
-  const {
+  const nextStep = () => {
+    const { step } = this.state;
+    setFormData({ step: step + 1 });
+  };
+
+  const prevStep = () => {
+    const { step } = this.state;
+    setFormData({ step: step - 1 });
+  };
+
+  const values = {
     title,
     reason_for_travel,
     submitted_by,
+    date_submitted,
+    date_approved,
     all_expenses,
     total_amount,
   } = formData;
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+//   handleChange = (input) => (e) => {
+//     this.setState({ [input]: e.target.value });
+//   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -73,57 +94,11 @@ const Report = () => {
   return (
     <Fragment>
       <h2>Create Report</h2>
-      <form className="add_expense" onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Report Title"
-            name="title"
-            value={title}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Reason for Travel?"
-            name="reason_for_travel"
-            value={reason_for_travel}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Username"
-            name="submitted_by"
-            value={submitted_by}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Add Expense"
-            name="all_expenses"
-            value={all_expenses}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Total Amount From Expenses?"
-            name="total_amount"
-            value={total_amount}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-
-        <button type="submit" className="btn">
-          Submit
-        </button>
-      </form>
+      <FormStart
+        nextStep={this.nextStep}
+        handleChange={this.handleChange}
+        values={values}
+      />
     </Fragment>
   );
 };
