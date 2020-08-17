@@ -1,6 +1,7 @@
 /* //Root Styles? */
-
+@import '~antd/dist/antd.dark.css';
 :root {
+  --main-dark-bg-color: #555;
 }
 
 .w-100 {
