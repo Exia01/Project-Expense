@@ -4,10 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import UserContextProvider from './contexts/user.context';
+import ThemeContextProvider from './contexts/theme.context';
 
-const app = <UserContextProvider>
-    <App />
-</UserContextProvider>
+const app = (
+  <ThemeContextProvider>
+    <UserContextProvider>
+      <App />
+    </UserContextProvider>
+  </ThemeContextProvider>
+);
 
 ReactDOM.render(app, document.getElementById('root'));
 

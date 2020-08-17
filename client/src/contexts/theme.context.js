@@ -7,11 +7,16 @@ export const ThemeContext = createContext();
 export const ThemeDispatchContext = createContext();
 
 const initialState = {
-  paletteType: light,
+  currentTheme: 'dark',
   info: null,
+  // represent the color for the apps
+  light: { syntax: '#555', ui: '#ddd', bg: '#eee' },
+  // font color, ui elements, background
+  dark: { syntax: '#ddd', ui: '#333', bg: '#555' },
+  custom: { syntax: '#ffff00', ui: '#ffff00', bg: '#ffff00' },
 };
 
-function UserContextProvider(props) {
+function ThemeContextProvider(props) {
   //abstracted away for reusability could place back on file if needed
   const [theme, dispatch] = useLocalStorageReducer(
     'theme',
@@ -28,4 +33,4 @@ function UserContextProvider(props) {
   );
 }
 
-export default UserContextProvider;
+export default ThemeContextProvider;
