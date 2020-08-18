@@ -1,10 +1,11 @@
 import React, { Component, createContext } from 'react';
 
 
-const Context = createContext();
+export const ReportContext = createContext();
 
-class Provider extends Component {
+export class Provider extends Component {
   state = {
+    step: 1,
     title: "",
     reason_for_travel: "",
     submitted_by: "",
@@ -16,11 +17,9 @@ class Provider extends Component {
 
   render() {
     return (
-      <Context.Provider value={this.state}>
+      <ReportContext.Provider value={this.state}>
         {this.props.children}
-      </Context.Provider>
+      </ReportContext.Provider>
     );
   }
 }
-
-export const Consumer = Context.Consumer;
