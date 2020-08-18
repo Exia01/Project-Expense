@@ -24,8 +24,6 @@ const Login = (props) => {
   };
 
   const onSubmit = async (values) => {
-    const { email, password } = values;
-
     //-- TESTING --//
     console.log('Submitting');
 

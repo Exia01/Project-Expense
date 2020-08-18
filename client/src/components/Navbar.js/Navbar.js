@@ -15,11 +15,10 @@ export default function Navbar(props) {
   // const theme = useTheme()
   // const classes = useStyles({ ...props, theme })
   const themeProps = useContext(ThemeContext)
-  console.log(themeProps);
   const classes = useStyles(themeProps)
   return (
-    <header>
-      <div className={`container-fluid navbar ${classes.root}`}>
+    <header className={classes.root}>
+      <div className={`container-fluid navbar`}>
         <div className='logo'></div>
         <ul className='navbar-menu'>
           <li>
