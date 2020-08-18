@@ -1,101 +1,71 @@
-import React, { Component } from 'react'
-import FormStart from './FormStart';
-import Expense from './Expense';
-import ExpenseList from './ExpenseList';
-import Report from './Report';
-import Confirm from './Confirm';
-import Success from './Success';
+import React, { Component, Fragment } from 'react';
+import { ReportContext, Consumer } from "../../contexts/context";
+// import { Consumer } from 
 
-export default class ReportForm extends Component {
+class ReportForm extends Component {
+  static contextType = ReportContext;
 
-    state = {
-        step: 1,
-        title: '',
-        reason_for_travel: '',
-        submitted_by: '',
-        date_submitted: '',
-        date_approved: '',
-        all_expenses: [],
-        total_amount: ''
-    }
+//   handleChange = (e) => {
+//     this.setState({ [e.target.name]: e.target.value });
+//   };
 
-    nextStep = () => {
-        const { step } = this.state;
-        this.setState({ step: step + 1 });
-    }
+  render() {
+    // Pull out the Provider Context
+    console.log(this.context);
+    const { title, reason_for_travel, handleChange, handleSubmit } = this.context;
+    console.log(`Props:`);
+    console.log(this.props);
 
-    prevStep = () => {
-        const { step } = this.state;
-        this.setState({ step: step - 1 });
-    }
-
-    handleChange = input => (e) => {
-        this.setState({ [input]: e.target.value })
-    }
-
-    render() {
-        const { step } = this.state;
-
-        const { title, reason_for_travel, submitted_by, date_submitted, date_approved, all_expenses, total_amount } = this.state;
-
-        const values = {
-          title,
-          reason_for_travel,
-          submitted_by,
-          date_submitted,
-          date_approved,
-          all_expenses,
-          total_amount,
-        };
-
-        switch(step) {
-            case 1: 
+    return (
+        <ReportContext.Consumer> 
+            { value => {
                 return (
-                    <FormStart 
-                        nextStep={this.nextStep}
-                        handleChange={this.handleChange}    
-                        values={values}
-                    />
+                    <Fragment>
+                        <div className="report-start col s12">
+                            <div className="row">
+                                <form className="col s8 offset-s2" onSubmit={this.context.handleSubmit}>
+                                <h3>Start Of Report Form</h3>
+                                <div className="row">
+                                    <div className="input-field col s8">
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        placeholder="Enter Title"
+                                        onChange={this.context.handleChange}
+                                        defaultValue={this.context.title}
+                                    />
+                                    <label htmlFor="title">Report Title</label>
+                                    </div>
+                                    <div className="input-field col s8">
+                                    <input
+                                        type="text"
+                                        name="reason_for_travel"
+                                        placeholder="Enter reason for travel"
+                                        onChange={this.context.handleChange}
+                                        defaultValue={this.context.reason_for_travel}
+                                    />
+                                    <label htmlFor="reason_for_travel">Report Reason</label>
+                                    </div>
+
+                                    <div className="input-field col s8">
+                                    <button
+                                        className="waves-effect waves-light btn"
+                                        type="submit"
+                                    >
+                                        Start
+                                    </button>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </Fragment>
                 )
-            case 2:
-                return (
-                    <h3>Expense Form View</h3>
-                )
-            case 3:
-                return (
-                    <>
-                        <Expense
-                            nextStep={this.nextStep}
-                            prevStep={this.prevStep}
-                            handleChange={this.handleChange}
-                            values={values}
-                         />
-                        <ExpenseList
-                            nextStep={this.nextStep}
-                            prevStep={this.prevStep}
-                            handleChange={this.handleChange}
-                            values={values}
-                        />
-                    </>
-                );
-            case 4:
-                return (
-                  <Confirm
-                    nextStep={this.nextStep}
-                    prevStep={this.prevStep}
-                    handleChange={this.handleChange}
-                    values={values}
-                  />
-                );
-            case 5:
-                return (
-                  <Success
-                    nextStep={this.nextStep}
-                    prevStep={this.prevStep}
-                    handleChange={this.handleChange}
-                    values={values}
-                  />
-                );
-        }
-    }
+            }}
+        </ReportContext.Consumer>
+    );
+  }
 }
+
+
+export default ReportForm;
