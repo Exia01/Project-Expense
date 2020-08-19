@@ -34,30 +34,48 @@ class ExpenseContainer extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitting Expense Data ...");
 
-        axios.post('/expenses', )
-        this.setState({
-          title: "",
-          amount: "",
-          amount_float: "",
-          expense_type: "",
-          description: "",
-          date_of_expense: "",
-          report_id: "",
-          submitted_by: "",
-        });
+        const { title, amount, amount_float, expense_type, description, date_of_expense } = this.state;
 
-        console.log("Form Inputs Cleared")
+        let exp = {
+            title: title,
+            amount: amount, 
+            amount_float: amount_float,
+            expense_type: expense_type,
+            description: description,
+            date_of_expense: date_of_expense
+        }
+
+        await axios.post('/expenses', exp)
+            .then(results => {
+                console.log(results);
+
+                //-- Reset form inputs --//
+                this.setState({
+                  title: "",
+                  amount: "",
+                  amount_float: "",
+                  expense_type: "",
+                  description: "",
+                  date_of_expense: "",
+                  report_id: "",
+                  submitted_by: "",
+                });
+        
+                console.log("Form Inputs Cleared")
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render () {
         return (
           <Fragment>
             <div className="expense-container">
-              <h2>Expense Container</h2>
               <ExpenseForm
                 props={this.state}
                 handleChange={this.handleChange}
