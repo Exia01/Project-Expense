@@ -51,25 +51,26 @@ class ExpenseContainer extends Component {
 
         await axios.post('/expenses', exp)
             .then(results => {
-                console.log(results);
+                // console.log(results);
 
-                //-- Reset form inputs --//
-                this.setState({
-                  title: "",
-                  amount: "",
-                  amount_float: "",
-                  expense_type: "",
-                  description: "",
-                  date_of_expense: "",
-                  report_id: "",
-                  submitted_by: "",
-                });
-        
-                console.log("Form Inputs Cleared")
             })
             .catch(err => {
                 console.log(err);
             });
+
+        //-- Reset form inputs --//
+        this.setState({
+            title: "",
+            amount: "",
+            amount_float: "",
+            expense_type: "",
+            description: "",
+            date_of_expense: "",
+            report_id: "",
+            submitted_by: "",
+        });
+
+        console.log("Form Inputs Cleared");
     }
 
     render () {

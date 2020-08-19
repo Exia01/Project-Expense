@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
 function ExpenseForm(props) {
-
-    console.log(props);
+    //-- TESTING ---//
+    // console.log(props);
 
     return (
       <Fragment>
@@ -68,25 +68,7 @@ function ExpenseForm(props) {
           <button type="submit" className="btn">
             Add Expense
           </button>
-
-          <hr />
-
-          <div className="input-field">
-            <label htmlFor="expense_type_select">Select Type of Expense</label>
-            <select
-              className=""
-              id="expense_type_select"
-              name="expense_type_select"
-              value={props.expense_type_select}
-              onChange={(e) => props.handleChange(e)}
-            >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
+ 
         </form>
       </Fragment>
     );
