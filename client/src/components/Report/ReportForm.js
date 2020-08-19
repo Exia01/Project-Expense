@@ -18,7 +18,7 @@ class ReportForm extends Component {
 
     return (
         <ReportContext.Consumer> 
-            { value => {
+            { (props) => {
                 return (
                     <Fragment>
                         <div className="report-start col s12">

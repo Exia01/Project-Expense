@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Expense = require('../models/Expense');
 
-//-- Route -> "/expense/"
+//-- Route -> "/expenses/"
 router.get('/', (req, res) => {
     console.log("Get All Expense Route");
     console.log("<><><><><>")
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
         })
 });
 
-//-- Route -> "/expense/"
+//-- Route -> "/expenses/"
 router.post('/', (req, res) => {
     console.log("Posting to Expense Route");
     console.log("<><><><><>")

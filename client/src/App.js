@@ -9,10 +9,13 @@ import Users from './components/auth/Users';
 import FileUpload from './components/FileUpload';
 import Dashboard from './components/Dashboard/Dashboard';
 import GeneratePlayground from './Generate/GeneratePlayground';
+
 import ReportContainer from './components/Report/ReportContainer';
 import ReportForm from './components/Report/ReportForm';
+import ExpenseContainer from './components/Expense/ExpenseContainer';
 import Expense from './components/Report/Expense';
 import ExpenseType from './components/Report/ExpenseType';
+
 
 import { Provider } from './contexts/context';
 
@@ -31,7 +34,7 @@ function App() {
               <Route exact path="/users" component={Users} />
               <Route exact path="/report" component={ReportForm} />
               <Route exact path="/reports/start" component={ReportContainer} />
-              <Route exact path="/expenses" component={Expense} />
+              <Route exact path="/expenses" component={ExpenseContainer} />
               <Route exact path="/expense/type" component={ExpenseType} />
               <Route exact path="/read" component={Generate} />
               <Route exact path="/read/test" component={GeneratePlayground} />
