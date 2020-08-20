@@ -6,14 +6,6 @@ import axios from 'axios';
 
 class ExpenseContainer extends Component {
     state = {
-        title: '',
-        amount: '',
-        amount_float: '',
-        expense_type: '',
-        description: '',
-        date_of_expense: '',
-        report_id: '',
-        submitted_by: '',
         all_expenses: []
     }
 
@@ -31,53 +23,27 @@ class ExpenseContainer extends Component {
             });
     }
 
-    addExpense = (exp) => {
-        this.setState(state => ({
-            all_expenses: [...state.all_expenses, exp]
-        }));
-    }
+    addExpense = async (exp) => {
+        //-- TESTING --//
+        // console.log("*** ADDING EXPENSE TO STATE ***")
+        // console.log(exp);
 
-    handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log("Submitting Expense Data ...");
-
-        const { title, amount, amount_float, expense_type, description, date_of_expense } = this.state;
-
-        let exp = {
-            title: title,
-            amount: amount, 
-            amount_float: amount_float,
-            expense_type: expense_type,
-            description: description,
-            date_of_expense: date_of_expense
-        }
-
+        //-- Post to Server route (add to DB)
         await axios.post('/expenses', exp)
             .then(results => {
-                console.log("** NEW EXPENSE **");
-                console.log(results);
-
-                //-- Reset form inputs --//
-                this.setState({
-                    title: "",
-                    amount: "",
-                    amount_float: "",
-                    expense_type: "",
-                    description: "",
-                    date_of_expense: "",
-                    report_id: "",
-                    submitted_by: "",
-                });
-                console.log("Form Inputs Cleared");
-                this.props.history.push('/expenses');
+                //-- TESTING --//
+                // console.log("**/ ADDED TO DB /**");
+                // console.log(results);
             })
             .catch(err => {
                 console.log(err);
-            });
+            })
+        
+        //-- Update Component State 
+        this.setState(state => ({
+            all_expenses: [...state.all_expenses, exp]
+        }));
+
     }
 
     render () {
@@ -86,8 +52,6 @@ class ExpenseContainer extends Component {
             <div className="expense-container">
               <ExpenseForm
                 props={this.state}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
                 addExpense={this.addExpense}
               />
               <ExpenseList expenses={this.state.all_expenses} />

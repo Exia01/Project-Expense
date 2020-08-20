@@ -20,24 +20,13 @@ class ExpenseForm extends Component {
       }
     }
 
-    // state = {
-    //   title: '',
-    //     amount: '',
-    //     amount_float: '',
-    //     expense_type: '',
-    //     description: '',
-    //     date_of_expense: '',
-    //     report_id: '',
-    //     submitted_by: '',
-    // }
-
     handleChange = (e) => {
       this.setState({[e.target.name]: e.target.value});
     }
 
     handleSubmit = (e) => {
       e.preventDefault();
-      console.log("Submitting Expense Data ...");
+      // console.log("Submitting Expense Data ...");
       this.props.addExpense(this.state);
 
       this.setState({
