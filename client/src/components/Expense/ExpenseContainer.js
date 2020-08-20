@@ -54,24 +54,25 @@ class ExpenseContainer extends Component {
             .then(results => {
                 // console.log(results);
 
+                //-- Reset form inputs --//
+                this.setState({
+                    title: "",
+                    amount: "",
+                    amount_float: "",
+                    expense_type: "",
+                    description: "",
+                    date_of_expense: "",
+                    report_id: "",
+                    submitted_by: "",
+                });
+                console.log("Form Inputs Cleared");
+                this.props.history.push('/reports/start');
             })
             .catch(err => {
                 console.log(err);
             });
 
-        //-- Reset form inputs --//
-        this.setState({
-            title: "",
-            amount: "",
-            amount_float: "",
-            expense_type: "",
-            description: "",
-            date_of_expense: "",
-            report_id: "",
-            submitted_by: "",
-        });
 
-        console.log("Form Inputs Cleared");
     }
 
     render () {
