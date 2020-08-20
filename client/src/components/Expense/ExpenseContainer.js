@@ -31,6 +31,12 @@ class ExpenseContainer extends Component {
             });
     }
 
+    addExpense = (exp) => {
+        this.setState(state => ({
+            all_expenses: [...state.all_expenses, exp]
+        }));
+    }
+
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -52,7 +58,8 @@ class ExpenseContainer extends Component {
 
         await axios.post('/expenses', exp)
             .then(results => {
-                // console.log(results);
+                console.log("** NEW EXPENSE **");
+                console.log(results);
 
                 //-- Reset form inputs --//
                 this.setState({
@@ -66,13 +73,11 @@ class ExpenseContainer extends Component {
                     submitted_by: "",
                 });
                 console.log("Form Inputs Cleared");
-                this.props.history.push('/reports/start');
+                this.props.history.push('/expenses');
             })
             .catch(err => {
                 console.log(err);
             });
-
-
     }
 
     render () {
@@ -83,6 +88,7 @@ class ExpenseContainer extends Component {
                 props={this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                addExpense={this.addExpense}
               />
               <ExpenseList expenses={this.state.all_expenses} />
             </div>
