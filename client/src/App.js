@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 import Generate from './Generate/Generate';
 import Login from './components/auth/Login';
@@ -21,6 +21,9 @@ import { Provider } from './contexts/context';
 
 function App() {
   // BrowserRouter enables links
+  //-- Initalize params.history (?) --//
+  let history = useHistory();
+
   return (
     <BrowserRouter>
       <Provider>
@@ -38,6 +41,7 @@ function App() {
               <Route exact path="/expense/type" component={ExpenseType} />
               <Route exact path="/read" component={Generate} />
               <Route exact path="/read/test" component={GeneratePlayground} />
+              <Route render={() => <h1>404 Error - Page Not Found</h1> } />
             </Switch>
           </section>
         </div>
