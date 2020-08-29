@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ExpenseType = require('./ExpenseType');
 
 const Schema = mongoose.Schema;
 
@@ -18,11 +17,11 @@ const expenseSchema = new Schema(
       type: String,
       required: true,
     },
-    // type_of_expense: [ExpenseType],
     expense_type: {
       type: String,
       enum: ["Gas", "Air Travel", "Car Rental", "Food", "Equipment", "Shipping", "Misc"]
     },
+    //-- Add Misc Reason Input --//
     description: {
       type: String,
       // required: true

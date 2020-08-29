@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { ReportContext, Consumer } from "../../contexts/context";
-// import { Consumer } from 
 
 class ReportForm extends Component {
   static contextType = ReportContext;
