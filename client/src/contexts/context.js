@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react';
 
-export const ReportContext = React.createContext();
+export const ReportContext = createContext();
 
 // export const ReportProvider = ReportContext.Provider
 // export const ReportConsumer = ReportContext.Consumer
