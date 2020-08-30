@@ -1,10 +1,10 @@
-import React, { Component, useState, Fragment } from 'react';
+import React, { Component, Fragment, useState, useContext } from "react";
 import { useForm } from '../hooks/useForm';
 
 import ExpenseList from './ExpenseHooksList';
 import axios from 'axios';
 
-const ExpenseForm = () => { 
+const ExpenseForm = (props) => { 
     
     //-- useForm custom hook, set initial state
     const [values, handleChange, reset] = useForm({
