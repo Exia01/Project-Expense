@@ -4,7 +4,10 @@ const useStyles = createUseStyles({
   root: {
     // display: 'flex',
     // maxWidth: '50vw',
-    paddingTop: '2rem',
+    marginTop: '1rem',
+    '& form': {
+      marginBottom: '1rem'
+    }
   },
   formGroup: {},
   formTitle: {
@@ -13,6 +16,12 @@ const useStyles = createUseStyles({
   formLabel: {
     display: 'inline-block',
     marginBottom: '.5rem',
+  },
+  formError: {
+    borderColor: '#ff4d4f',
+    color: '#ff4d4f',
+    minHeight: '24px',
+    transition: "color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1)",
   },
   submitBtn: {
     // marginTop: '',

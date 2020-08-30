@@ -4,7 +4,7 @@ export const themeReducer = (state, action) => {
     //could import the action types instead of typing the cases
     case 'TOGGLE_PALETTE':
       let paletteType = '';
-      state.paletteType == 'light'
+      state.paletteType === 'light'
         ? (paletteType = 'dark')
         : (paletteType = 'light');
       return { ...state, paletteType };

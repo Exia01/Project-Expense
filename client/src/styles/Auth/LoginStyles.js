@@ -1,23 +1,33 @@
-import { createUseStyles } from 'react-jss'
+import { createUseStyles } from 'react-jss';
+import size from '../size';
 
 const useStyles = createUseStyles({
-    root: {
-        height: (props) => (props.form === 'login' ? '75vh' : '70vh'),
+  root: {
+    // height: (props) => (props.form === 'login' ? '50vh' : '50vh'),
+    height: '100%',
+    '& .ant-row': {
+      height: 'inherit',
+    },
+  },
+  formTitle: {
+    // flex: '1 100%'
+  },
+  formError: {
+    color: '#b30000',
+    fontWeight: 'bold',
+  },
+  submitBtn: {
+    marginRight: '.5rem',
+  },
 
-        // display: 'flex',
-        // maxWidth: '50vw',
-        // margin: '5rem auto 0 auto ',
-        // flexFlow: 'wrap'
-        '& .ant-row': {
-            height:'inherit',
-        }
-    },
-    formTitle: {
-        // flex: '1 100%'
-    },
-    submitBtn: {
-        marginRight: '.5rem'
-    }
+
+  [size.up('sm')]: {
+  },
+  [size.up('md')]: {
+  },
+  [size.up('lg')]: {
+
+  },
 });
 
-export default useStyles
+export default useStyles;
