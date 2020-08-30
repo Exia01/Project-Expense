@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react'
 
 export const ReportContext = createContext();
 
-class reportContextProvider extends Component {
+class ReportContextProvider extends Component {
   state = {
     step: 1,
     title: "",
@@ -14,13 +14,24 @@ class reportContextProvider extends Component {
     total_amount: "",
   };
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit = (e) => {
+      e.preventDefault();
+      console.log("Submitting report");
+  }
+
   render() {
     return (
-      <ReportContext.Provider value={{ ...this.state }}>
+      <ReportContext.Provider value={{ ...this.state, handleChange: this.handleChange, handleSubmit: this.handleSubmit }}>
         {this.props.children}
       </ReportContext.Provider>
     );
   }
 }
 
-export default reportContextProvider;
+export default ReportContextProvider;

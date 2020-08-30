@@ -13,8 +13,13 @@ import ReportContainer from './components/Report/ReportContainer';
 import ReportForm from './components/Report/ReportForm';
 import ExpenseContainer from './components/Expense/ExpenseContainer';
 import Expense from './components/Report/Expense';
+import ExpenseHooksForm from './components/Expense/ExpenseHooksForm'
 
+//-- Import Context --//
 import { Provider } from './contexts/context';
+// import { ExpenseContextProvider } from './contexts/expenseContext';
+// import { ReportContextProvider } from './contexts/reportContext';
+
 
 function App() {
   // BrowserRouter enables links
@@ -35,9 +40,10 @@ function App() {
               <Route exact path="/reports" component={ReportForm} />
               <Route exact path="/reports/start" component={ReportContainer} />
               <Route exact path="/expenses" component={ExpenseContainer} />
+              <Route exact path="/expenses/hooks" component={ExpenseHooksForm} />
               <Route exact path="/read" component={Generate} />
               <Route exact path="/read/test" component={GeneratePlayground} />
-              <Route render={() => <h1>404 Error - Page Not Found</h1> } />
+              <Route render={() => <h1>404 Error - Page Not Found</h1>} />
             </Switch>
           </section>
         </div>

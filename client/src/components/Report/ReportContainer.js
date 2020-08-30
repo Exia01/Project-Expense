@@ -1,20 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import ReportForm from './ReportForm';
+import ExpenseContainer from '../Expense/ExpenseContainer';
 
 class ReportContainer extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: '',
-            reason_for_travel: '',
-            submitted_by: '',
-            date_submitted: '',
-            date_approved: '',
-            all_expenses: [],
-            total_amount: '',
-        };
-    }
 
     render() {
         return(
@@ -22,6 +10,7 @@ class ReportContainer extends Component {
                 <div className="report-container">
                     <h1>Create New Report</h1>
                     <ReportForm />
+                    <ExpenseContainer />
                 </div>
             </Fragment>
         )
