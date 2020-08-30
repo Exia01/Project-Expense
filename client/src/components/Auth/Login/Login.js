@@ -1,31 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../../../contexts/user.context';
 
+//Ant Design Css and component styles
 import { Row, Col } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-
-//Ant Design Css and component styles
 import 'antd/dist/antd.css';
 import useStyles from '../../../styles/Auth/LoginStyles';
 import { formLayout } from '../../../utils/form/layout';
+import useErrorState from '../../../hooks/useErrorState';
 
 const Login = (props) => {
-  //-- Setup State
+  const { isAuthenticated, user: authUserObj } = useContext(UserContext); //namedImport
+
   const [toDash, setToDash] = useState(false);
   const classes = useStyles(props);
+  const [formError, setFormError, resetFormError] = useErrorState('');
+  const [submittingForm, setSubmittingForm] = useState(false);
 
   const handleChange = (changedValues, allValues) => {
     console.log(changedValues, ' Changed Values');
     const [entry] = Object.entries(changedValues);
-    console.log(entry);
+    // console.log(entry);
     // setFormData({ ...formData, [entry[0]]: entry[1] });
   };
 
   const onSubmit = async (values) => {
     //-- TESTING --//
-    console.log('Submitting');
+    // console.log('Submitting');
 
     //-- create temp user
     const user = values;
@@ -48,14 +52,15 @@ const Login = (props) => {
       console.log(res.data);
       //-- Clear inputs
       //-- Update toDashboard State
-      setToDash(true);
+      resetFormError('');
     } catch (err) {
-      console.error(err.response.data);
+      // console.error(err.response.data.errors);
       // res.status(500).json(err);
+      setFormError(err.response.data.errors.msg);
     }
   };
 
-  if (toDash === true) {
+  if (isAuthenticated()) {
     //-- Redirect to Landing
     return <Redirect to='/dashboard' />;
   }
@@ -66,6 +71,11 @@ const Login = (props) => {
         <Row justify='center' align='middle'>
           <Col xs={12} sm={10} md={8} lg={6}>
             <h1 className={classes.formTitle}>Welcome back, Please log In!</h1>
+            {formError && (
+              <div className={classes.formError}>
+                <p>{formError}</p>
+              </div>
+            )}
             <Form
               {...formLayout}
               name='normal_login'
@@ -73,6 +83,8 @@ const Login = (props) => {
               onValuesChange={handleChange}
               onFinish={onSubmit}
               validateTrigger='onSubmit'
+              hideRequiredMark='true'
+              onFinishFailed={() => setFormError('')}
             >
               <Form.Item
                 label='Email'
@@ -115,6 +127,7 @@ const Login = (props) => {
                   type='primary'
                   htmlType='submit'
                   className={`login-form-button  ${classes.submitBtn}`}
+                  loading={submittingForm && 'true'}
                 >
                   Log in
                 </Button>
@@ -136,3 +149,7 @@ Login.defaultProps = {
 };
 
 export default Login;
+
+// Form API? // // https://formik.org/docs/overview
+
+// Email Validation: https://www.itsolutionstuff.com/post/react-email-validation-exampleexample.html

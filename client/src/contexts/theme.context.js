@@ -7,7 +7,7 @@ export const ThemeContext = createContext();
 export const ThemeDispatchContext = createContext();
 
 const initialState = {
-  currentTheme: 'dark',
+  currentTheme: 'light',
   info: null,
   // represent the color for the apps
   light: { syntax: '#555', ui: '#ddd', bg: '#eee' },
