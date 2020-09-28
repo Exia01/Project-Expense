@@ -17,24 +17,20 @@ export class Provider extends Component {
     total_amount: "",
   };
 
-//   handleStep = () => {
-//       this.setState({ step: this.step + 1})
-//   }
-
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = async (e) => {
-      e.preventDefault();
-      console.log("Testing Report Submit");
+    e.preventDefault();
+    console.log("Testing Report Submit");
 
-      // axios.post()
+    // axios.post()
   }
 
   render() {
     return (
-      <ReportContext.Provider value={{...this.state, handleChange:this.handleChange, handleSubmit:this.handleSubmit }}>
+      <ReportContext.Provider value={{ ...this.state, handleChange: this.handleChange, handleSubmit: this.handleSubmit }}>
         {this.props.children}
       </ReportContext.Provider>
     );
